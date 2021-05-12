@@ -1,0 +1,8 @@
+// add our own addition stype to bulmas standard footer class
+//
+// We want a simple horizontal bar above the footer
+//
+
+.footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}

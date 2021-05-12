@@ -50,7 +50,7 @@ inspiration.
 
 1. [Mithril](https://mithril.js.org/)
 
-2. [Material Design Lite](https://getmdl.io/)
+2. [Bulma](https://bulma.io/documentation/)
 
 3. [D3](https://d3js.org/)
 
@@ -61,15 +61,23 @@ inspiration.
 5. [CodeJar](https://medv.io/codejar/)
 
 6. [Prism](https://prismjs.com/) Note we will probabaly eventually need to 
-create our own langauge for JoyLoL. So we want to use Prism now to allow 
-this in the future. We will use the Webpack and Uglify development tools 
-(below) to programatically produce our own minified prism files.
+   create our own langauge for JoyLoL. So we want to use Prism now to 
+   allow this in the future. We will use the Webpack and Uglify 
+   development tools (below) to programatically produce our own minified 
+   prism files. 
+
+7. [FontAwesome(free)](https://github.com/FortAwesome/Font-Awesome) A 
+   collection of fonts and icons. 
 
 ## UI development tools
 
-1. [UglifyJS](https://github.com/mishoo/UglifyJS)
+1. [Storybook](https://storybook.js.org/)
 
-2. [UglifyCSS](https://github.com/fmarcia/UglifyCSS)
+2. [Sass](https://sass-lang.com/)
 
 3. [Webpack](https://webpack.js.org/)
+
+4. [Babel](https://babeljs.io/)
+
+
 
