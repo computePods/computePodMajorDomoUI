@@ -56,7 +56,7 @@ inspiration.
 
   - [D3-mitch-tree](https://github.com/deltoss/d3-mitch-tree)
 
-4. [SplitJS](https://split.js.org/)
+4. [SplitJS](https://github.com/nathancahill/split/tree/master/packages/splitjs)
 
 5. [CodeJar](https://medv.io/codejar/)
 
