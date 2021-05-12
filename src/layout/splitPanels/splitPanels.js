@@ -31,6 +31,10 @@ export const SplitPanels = () => {
           id: 'split-2',
           class: 'content has-text-centered split-panel'
         }, "This is split-2"),
+        m('div', {
+          id: 'split-3',
+          class: 'content has-text-centered split-panel'
+        }, "This is split-3"),
       ),
   };
 };

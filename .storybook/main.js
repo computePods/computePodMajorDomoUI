@@ -26,6 +26,7 @@ module.exports = {
     //
     config.resolve.alias['@cpmd']  = path.resolve(__dirname, '../src');
     config.resolve.alias['@bulma'] = path.resolve(__dirname, '../node_modules/bulma');
+    config.resolve.alias['@prismjs'] = path.resolve(__dirname, '../node_modules/prismjs');
 
     // The 'modules.rules' is a list of webpack loader rules
     // we explicitly add loader rules for the use of SASS scss formated files

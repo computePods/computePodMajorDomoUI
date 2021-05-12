@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+# This ruby files creates a random log file
+
+require 'logger'
+#require 'random'
+
+def randomString() 
+  charSet = Array('a'..'z') + Array.new(10) { ' ' } + ['. ']
+  randomNum = rand 50..100
+  randomStr = Array.new(randomNum) { charSet.sample }.join.gsub(/[ ]+/, ' ').gsub(/ \./, '.')
+  return randomStr
+end
+
+logger = Logger.new(STDOUT)
+loggerTypes = ['UNKNOWN', 'FATAL', 'ERROR', 'WARN', 'INFO', 'DEBUG']
+
+200.times do | i |
+  msg = randomString()
+  case loggerTypes.sample
+  when 'UNKNOWN'
+    logger.unknown(msg)
+  when 'FATAL'
+    logger.fatal(msg)
+  when 'ERROR'
+    logger.error(msg)
+  when 'WARN'
+    logger.warn(msg)
+  when 'INFO'
+    logger.info(msg)
+  when 'DEBUG'
+    logger.debug(msg)
+  end
+end
