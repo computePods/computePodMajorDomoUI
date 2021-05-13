@@ -62,10 +62,12 @@ inspiration.
 
 6. [Prism](https://prismjs.com/) Note we will probabaly eventually need to 
    create our own langauge for JoyLoL. So we want to use Prism now to 
-   allow this in the future. We will use the Webpack and Uglify 
+   allow this in the future. We will use the Webpack, babel and 
+   [babel-plugin-prismjs](https://github.com/mAAdhaTTah/babel-plugin-prismjs) 
    development tools (below) to programatically produce our own minified 
    prism files. 
 
+   
 7. [FontAwesome(free)](https://github.com/FortAwesome/Font-Awesome) A 
    collection of fonts and icons. 
 
@@ -79,5 +81,7 @@ inspiration.
 
 4. [Babel](https://babeljs.io/)
 
+5. [babel-plugin-prismjs](https://github.com/mAAdhaTTah/babel-plugin-prismjs) 
+   is required to *locally* configure and serve prismjs.
 
 

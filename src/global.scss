@@ -1,8 +1,11 @@
 @charset "utf-8";
 
 @use '@bulma/bulma';
+@use '@eStatic/prism';
+//@use '@eStatic/highlightjs/styles/default';
 
 @use 'layout/header/header';
 @use 'layout/footer/footer';
 @use 'layout/splitPanels/splitPanels';
 @use 'layout/logViewers/logViewers';
+@use 'layout/fileEditors/fileEditors';

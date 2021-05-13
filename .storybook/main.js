@@ -15,8 +15,8 @@ module.exports = {
     "@storybook/addon-storysource"
   ],
   "webpackFinal": async (config, { configType }) => {
-    console.log('---------------------------------------------------------')
-    console.log(config)
+//    console.log('---------------------------------------------------------')
+//    console.log(config)
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
     // You can change the configuration based on that.
     // 'PRODUCTION' is used when building the static version of storybook.
@@ -26,7 +26,9 @@ module.exports = {
     //
     config.resolve.alias['@cpmd']  = path.resolve(__dirname, '../src');
     config.resolve.alias['@bulma'] = path.resolve(__dirname, '../node_modules/bulma');
-    config.resolve.alias['@prismjs'] = path.resolve(__dirname, '../node_modules/prismjs');
+    config.resolve.alias['@codeJar'] = path.resolve(__dirname, '../node_modules/codejar');
+//    config.resolve.alias['@prismjs'] = path.resolve(__dirname, '../node_modules/prismjs');
+    config.resolve.alias['@eStatic'] = path.resolve(__dirname, '../externalStatic');
 
     // The 'modules.rules' is a list of webpack loader rules
     // we explicitly add loader rules for the use of SASS scss formated files
@@ -37,10 +39,46 @@ module.exports = {
       include: path.resolve(__dirname, '../'),
     });
 
-    console.log('---------------------------------------------------------')
-    console.log(config)
-    console.log('---------------------------------------------------------')
+//    console.log('---------------------------------------------------------')
+//    console.log(config)
+//    console.log('---------------------------------------------------------')
     // Return the altered config
     return config;
   },
+/*
+  "babel": async (options) => {
+//    console.log("==========================================================")
+//    console.log(options)
+    options.plugins.push([ "prismjs", {
+      "languages": [
+        "bash",
+        "clike", 
+        "context",
+        "css",
+        "javascript",
+        "latex",
+        "lisp",
+        "log",
+        "lua",
+        "markdown",
+        "markup",
+        "python",
+        "shell",
+        "tex",
+        "yaml",
+      ],
+      "plugins": [
+        "line-highlight",
+        "line-numbers",
+        "match-braces",
+      ],
+      "theme": "twilight",
+      "css": true
+    }]);
+//    console.log("==========================================================")
+//    console.log(options)
+//    console.log("==========================================================")
+    return options
+  },
+*/
 }

@@ -16,6 +16,6 @@ const Template = ({ children, ...args }) => ({
 
 export const Primary = Template.bind({});
 Primary.args = {
-  //children: [ LogViewersData() ],
-  children: [ `var data = 1;` ],
+  children: [ LogViewersData() ],
+  //children: [ 'var data = 1;' ],
 };
