@@ -1,0 +1,28 @@
+// fileEditor specific CSS
+
+.token.number {
+  display: unset;
+  font-size: unset;
+}
+
+.token.important {
+  display: unset;
+}
+
+.token.keyword {
+  display: unset;
+}
+
+.log-viewer {
+  overflow: auto;
+  height: 400px;
+}
+
+.log-even {
+  background: lightgrey;
+}
+
+.caret {
+  cursor: pointer;
+  user-select: none;
+}
