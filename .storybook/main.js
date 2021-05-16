@@ -27,6 +27,7 @@ module.exports = {
     config.resolve.alias['@cpmd']  = path.resolve(__dirname, '../src');
     config.resolve.alias['@bulma'] = path.resolve(__dirname, '../node_modules/bulma');
     config.resolve.alias['@codeJar'] = path.resolve(__dirname, '../node_modules/codejar');
+    config.resolve.alias['@fortawesome'] = path.resolve(__dirname, '../node_modules/@fortawesome');
 //    config.resolve.alias['@prismjs'] = path.resolve(__dirname, '../node_modules/prismjs');
     config.resolve.alias['@eStatic'] = path.resolve(__dirname, '../externalStatic');
 

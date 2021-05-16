@@ -69,7 +69,7 @@ inspiration.
 
    
 7. [FontAwesome(free)](https://github.com/FortAwesome/Font-Awesome) A 
-   collection of fonts and icons. 
+   collection of fonts and [icons](https://fontawesome.com/icons). 
 
 ## UI development tools
 

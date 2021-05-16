@@ -1,12 +1,12 @@
-// fileEditor specific CSS
+// artifact browser specific CSS
 
-.token.number {
-  display: unset;
-  font-size: unset;
+ul.artifact-browser.arrow-right {
+  list-style-type: '\25B6'; // BLACK RIGHT-POINTING TRIANGLE
+  
 }
 
-.token.important {
-  display: unset;
+ul.artifact-browser.arrow-down {
+  list-style-type: '\25BC'; // BLACK DOWN-POINTING TRIANGLE
 }
 
 .token.keyword {

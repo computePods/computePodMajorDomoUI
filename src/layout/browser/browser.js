@@ -1,9 +1,17 @@
 import m from 'mithril';
 
+import { library, icon } from '@fortawesome/fontawesome-svg-core'
+import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
 
 // see: https://www.w3schools.com/howto/howto_js_treeview.asp
 
 // see: https://bulma.io/documentation/elements/icon/#font-awesome-variations
+
+//library.add(faBars)
+//const menuBars = icon({prefix: 'fas', iconName: 'bars'})
+const menuBars = icon(faBars, {
+  attributes: { 'id': 'delete' }
+})
 
 export const Browser = (outterVnode) => {
 
@@ -12,17 +20,16 @@ export const Browser = (outterVnode) => {
   	  let vnodeItems = [];
   	  for (let aDir in theModel.directories) {
         console.log(aDir)
-        var dirKey = thePath+'-'+aDir
-  	    let someVNodes = buildBrowser(dirKey, theModel.directories[aDir])
+        let dirKey = thePath+'-'+aDir
+  	    let vNodesToHide = buildBrowser(dirKey, theModel.directories[aDir])
         let caretSpan =  m('span',
   	        {
-  	          class: 'caret',
+  	          class: 'artifact-browser arrow-down',
   	          id: dirKey,
   	          key: dirKey,
   	          onclick: function(e) {
-  	      	    let nestedElements = someVNodes
-  	      	    console.log(someVNodes)
-  	      	    someVNodes.forEach(function(anElement) {
+  	      	    console.log(vNodesToHide)
+  	      	    vNodesToHide.forEach(function(anElement) {
   	      	      console.log(anElement)
   	      	      anElement.dom.hidden = !anElement.dom.hidden
   	      	    });
@@ -33,20 +40,17 @@ export const Browser = (outterVnode) => {
   	      );
   	    vnodeItems.push(m('li',
   	      { 
-  	        class: ['hbrowser', 'hdir '],
+  	        class: ['artifact-browser', 'a-dir '],
   	        key: dirKey+'li',
             hidden: false,
   	      },
-  	      [caretSpan, ...someVNodes]
+  	      [caretSpan, ...vNodesToHide]
   	    ))
   	  }
-  	  console.log("////////////")
-  	  console.log(vnodeItems)
-  	  console.log("////////////")
   	  var theKey = thePath+'-dirs'
   	  newVNodes.push(m('ul',
   	    { 
-  	      class: 'hbrowser hdirs nested '+theKey,
+  	      class: 'artifact-browser a-dirs '+theKey,
   	      id: theKey,
   	      key: theKey,
   	    },
@@ -88,6 +92,11 @@ export const Browser = (outterVnode) => {
   return {
     view: (vnode) => { 
       console.log("-------------------------------------")
+      console.log(faBars)
+      console.log(icon(faBars))
+      console.log(menuBars)
+      console.log("-------------------------------------")
+      console.log("-------------------------------------")
       console.log(vnode.attrs.model)
       console.log("-------------------------------------")
       console.log(vnode)
@@ -96,7 +105,20 @@ export const Browser = (outterVnode) => {
       console.log("=====================================")
       console.log(theBody)
       console.log("=====================================")
-      return theBody
+      //let svgHtml = icon(faBars).html[0].replace('class=', 'id=\"delete\" class=')
+      let svgHtml = menuBars.html[0]
+      let menuBarsSVG = m.trust('<span hidden>'+svgHtml+'</span>')
+      console.log(menuBarsSVG)
+      // see: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/use
+      // deep imports: https://fontawesome.com/how-to-use/javascript-api/other/tree-shaking
+      // abstract icon: https://fontawesome.com/how-to-use/javascript-api/methods/icon
+      return m(
+      	'div',
+      	{},
+      	menuBarsSVG,
+      	m.trust(`<span><svg class="svg-inline--fa fa-w-14"><use xlink:href="#delete"></use></svg></span>`),
+        theBody
+      )
     }
   }
 }
