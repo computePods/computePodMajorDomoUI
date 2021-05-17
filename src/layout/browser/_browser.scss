@@ -1,28 +1,10 @@
 // artifact browser specific CSS
 
-ul.artifact-browser.arrow-right {
-  list-style-type: '\25B6'; // BLACK RIGHT-POINTING TRIANGLE
-  
+ul.artifact-browser {
+//  padding-left: 2rem;
+  list-style-type: none;
 }
 
-ul.artifact-browser.arrow-down {
-  list-style-type: '\25BC'; // BLACK DOWN-POINTING TRIANGLE
-}
-
-.token.keyword {
-  display: unset;
-}
-
-.log-viewer {
-  overflow: auto;
-  height: 400px;
-}
-
-.log-even {
-  background: lightgrey;
-}
-
-.caret {
-  cursor: pointer;
-  user-select: none;
+ul.artifact-browser li {
+  padding-left: 2rem;
 }
