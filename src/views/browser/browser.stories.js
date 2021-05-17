@@ -4,7 +4,7 @@ import { Browser } from './browser';
 import { BrowserData } from './browserData';
 
 export default {
-  title: 'Layout/Browser',
+  title: 'Views/Browser',
   component: Browser,
 }
 

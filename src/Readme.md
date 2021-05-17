@@ -32,7 +32,7 @@ established by the doubled ended TLS done by the browser/web-server.
 The web-server *must* embed the user identity in all returned JSX JSON 
 structures. 
 
-## General Layout
+## General UI views
 
 All pages will consist of a, possibly hidden, artifact "browser", as well 
 as one or more panels containing information about one or more selected 

@@ -5,9 +5,9 @@
 @use '@eStatic/prism';
 //@use '@eStatic/highlightjs/styles/default';
 
-@use 'layout/header/header';
-@use 'layout/footer/footer';
-@use 'layout/splitPanels/splitPanels';
-@use 'layout/logViewers/logViewers';
-@use 'layout/fileEditors/fileEditors';
-@use 'layout/browser/browser';
+@use 'views/header/header';
+@use 'views/footer/footer';
+@use 'views/splitPanels/splitPanels';
+@use 'views/logViewers/logViewers';
+@use 'views/fileEditors/fileEditors';
+@use 'views/browser/browser';

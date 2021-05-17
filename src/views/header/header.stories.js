@@ -3,7 +3,7 @@ import m from 'mithril';
 import { Header } from './header';
 
 export default {
-  title: 'Layout/Header',
+  title: 'Views/Header',
   component: Header,
 };
 

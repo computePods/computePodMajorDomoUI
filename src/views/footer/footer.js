@@ -1,7 +1,5 @@
 import m from 'mithril';
 
-// https://bulma.io/documentation/layout/footer/
-
 export const Footer = () => {
   return {
     view: () =>

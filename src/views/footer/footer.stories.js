@@ -5,7 +5,7 @@ import m from 'mithril';
 import { Footer } from './footer';
 
 export default {
-  title: 'Layout/Footer',
+  title: 'Views/Footer',
   component: Footer,
 };
 

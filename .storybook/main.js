@@ -1,6 +1,7 @@
 // .storybook/main.js
 
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   "stories": [
@@ -15,8 +16,8 @@ module.exports = {
     "@storybook/addon-storysource"
   ],
   "webpackFinal": async (config, { configType }) => {
-//    console.log('---------------------------------------------------------')
-//    console.log(config)
+    console.log('---------------------------------------------------------')
+    console.log(config)
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
     // You can change the configuration based on that.
     // 'PRODUCTION' is used when building the static version of storybook.
@@ -30,6 +31,18 @@ module.exports = {
     config.resolve.alias['@fortawesome'] = path.resolve(__dirname, '../node_modules/@fortawesome');
 //    config.resolve.alias['@prismjs'] = path.resolve(__dirname, '../node_modules/prismjs');
     config.resolve.alias['@eStatic'] = path.resolve(__dirname, '../externalStatic');
+    config.resolve.alias['@msw'] = path.resolve(__dirname, '../node_modules/msw');
+
+    // The plugins is a list of webpack plugins
+    // we explicitly add a webpack.DefinePlugin (a second instance)
+    //
+    // see: https://webpack.js.org/plugins/define-plugin/
+    //
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        __MOCK_SERVER__: JSON.stringify(true)
+      })
+    )
 
     // The 'modules.rules' is a list of webpack loader rules
     // we explicitly add loader rules for the use of SASS scss formated files
@@ -40,9 +53,9 @@ module.exports = {
       include: path.resolve(__dirname, '../'),
     });
 
-//    console.log('---------------------------------------------------------')
-//    console.log(config)
-//    console.log('---------------------------------------------------------')
+    console.log('---------------------------------------------------------')
+    console.log(config)
+    console.log('---------------------------------------------------------')
     // Return the altered config
     return config;
   },

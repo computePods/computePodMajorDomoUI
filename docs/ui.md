@@ -84,4 +84,8 @@ inspiration.
 5. [babel-plugin-prismjs](https://github.com/mAAdhaTTah/babel-plugin-prismjs) 
    is required to *locally* configure and serve prismjs.
 
+6. [Mock Service Workers](https://mswjs.io/) is used to develop and test 
+   the client-UI separate from the server.
 
+7. [AJV](https://ajv.js.org/) might be used to test/verify the rest 
+   interface between the client and the server. 

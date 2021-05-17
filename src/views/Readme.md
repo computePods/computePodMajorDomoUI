@@ -1,4 +1,4 @@
-# General Layout
+# General UI views
 
 All pages will consist of a, possibly hidden, artifact "browser", as well 
 as one or more panels containing information about one or more selected 
