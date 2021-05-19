@@ -1,5 +1,7 @@
 # MajorDomo logfiles interface
 
+<!-- toc -->
+
 The **Logfiles** interface provides the MajorDomo UI with access to one or 
 more logfiles produced during a build cycle. The **Logfiles** interface is 
 *read-only*. 
@@ -12,12 +14,16 @@ httpRoutes:
   - route: /logfile/<taskPath>
     action: GET
     response: logfileJson
+```
 
+### JSON logfile structures
+
+```yaml
 jsonTypes:
   logfileJson:
-    user: userName
     lines:
-      type: array
-      items: string
+      __array__: string
     
 ```
+
+where a <[taskPath](Build.md#task-paths)> is ..

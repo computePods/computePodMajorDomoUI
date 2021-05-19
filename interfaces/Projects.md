@@ -1,6 +1,6 @@
 # MajorDomo project descriptions
 
-!TOC
+<!-- toc -->
 
 The **Projects** interface provides the MajorDomo UI with a list of 
 existing Project descriptions for a user, together with the associated 
@@ -14,6 +14,8 @@ httpRoutes:
     action: GET
     response: projectDefinition
 ```
+
+### Project definition files
 
 On *disk* a project definition *file* is a YAML file loosley based upon the 
 [Python Sake](http://tonyfischetti.github.io/sake/) format. For example:
@@ -38,6 +40,8 @@ targets:
     worker: context
 ```
 
+### JSON project definition
+
 A project definition is a string description together with a dictionary of 
 targets. Each target key is the name of a target. Each target item 
 consists of a help string, a list of known (top-level file) dependencies, 
@@ -52,7 +56,6 @@ jsonTypes:
       __dictionary__:
         help: string
         dependencies:
-          type: array
-          items: string
+          __array__: string
         worker: string
 ```

@@ -1,5 +1,7 @@
 # MajorDomo original project files
 
+<!-- toc -->
+
 The **Files** interface provides a way for the MajorDomo UI to access and 
 list the currently known project files. 
 
@@ -18,6 +20,15 @@ httpRoutes:
     action: GET
     response: workspaceTree
 ```
+### Workspace Paths
+
+Workspace paths are essentially Unix/Web paths (using the `/` separator) 
+relative to the user's personal "commons" directory. 
+
+### JSON workspaceTree
+
+A `workspaceTree` is a recursive JSON structure which captures a 
+"directory's" contained sub-directories as well as files. 
 
 ```yaml
 jsonTypes:
