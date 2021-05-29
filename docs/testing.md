@@ -1,6 +1,6 @@
 # Testing the web interface
 
-In order to develope, unit, integration and end-to-end tests of our 
+In order to develop, unit, integration and end-to-end tests of our 
 interface, we will use a mixture of 
 
 - [Storybook](https://storybook.js.org/),
@@ -13,7 +13,7 @@ interface, we will use a mixture of
 
 ## Development
 
-Will be developed using Stoybook stories working in a top down fashion. 
+Will be developed using Storybook stories working in a top down fashion. 
 That is we begin by developing stories for "complete" pages and then 
 refactor common components into their own stories. (The opposite of a 
 [component driven interface](https://www.componentdriven.org/), though we 
@@ -46,7 +46,7 @@ Will be tested using Jest
 **Individual components** will be tested using Jest+Puppeteer driving a 
 running Storybook instance. 
 
-**Whole Application** will be tested uins Jest+Puppeteer driving a running 
+**Whole Application** will be tested using Jest+Puppeteer driving a running 
 webpack instance. 
 
 ## What to test?
@@ -54,7 +54,7 @@ webpack instance.
 Generally we are only interested in making sure the *functional* structure 
 of the interface exists and behaves as documented. 
 
-We are not overly interested in making sure the *surface* *visualization* 
+We are not overly interested in making sure the *surface* *visualisation* 
 is consistent. This would be nice to have, but we should not expend effort 
 making sure it is tested in much detail if at all.
 

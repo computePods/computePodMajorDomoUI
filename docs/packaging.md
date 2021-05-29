@@ -2,11 +2,11 @@
 
 ## Using Webpack to bundle our web interface
 
-We use [webpack](https://webpack.js.org/) to bundle our web inerface.
+We use [webpack](https://webpack.js.org/) to bundle our web interface.
 
 We use various [webpack loaders](https://webpack.js.org/loaders/) (or 
 [awesome-webpack-loaders](https://github.com/webpack-contrib/awesome-webpack#loaders))
-to bundle/compile non-javascript artifacts. 
+to bundle/compile non-JavaScript artefacts. 
 
 In particular we use:
 
@@ -21,7 +21,7 @@ views of the dependency tree of our source code.
 
 We use the 
 [node-dependency-visualizer](https://github.com/0815fox/node-dependency-visualizer) 
-to produce a (huge) svg visualization of the NPM package dependencies. The 
+to produce a (huge) svg visualisation of the NPM package dependencies. The 
 command line: 
 
     node_modules/.bin/node-dependency-visualizer | 
