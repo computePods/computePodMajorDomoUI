@@ -3,7 +3,7 @@ import m from 'mithril';
 import { Header } from './header';
 
 export default {
-  title: 'Views/Header',
+  title: 'Components/Header',
   component: Header,
 };
 
@@ -12,4 +12,23 @@ const Template = ({ children, ...args }) => ({
 });
 
 export const Primary = Template.bind({});
-Primary.args = { };
+Primary.args = {
+  theLink: {
+  	link: '/',
+  	text: 'ComputePods MajorDomo'
+  },
+  theMenu: [
+  	{
+  	  link: '/',
+  	  text: 'this is silly'
+  	},
+  	{
+  	  link: true,
+  	  text: 'this is not silly'
+  	},
+  	{
+  	  link: '/',
+  	  text: 'this is very silly'
+  	}
+  ]
+};

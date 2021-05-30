@@ -5,7 +5,7 @@ import m from 'mithril';
 import { Footer } from './footer';
 
 export default {
-  title: 'Views/Footer',
+  title: 'Components/Footer',
   component: Footer,
 };
 
@@ -14,4 +14,10 @@ const Template = ({ children, ...args }) => ({
 });
 
 export const Primary = Template.bind({});
-Primary.args = { }
+Primary.args = {
+  theLink: { 
+    link: 'https://github.com/computePods/',
+    class: 'not-navbar-item',
+    text: 'ComputePods'
+  }
+}

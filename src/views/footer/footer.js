@@ -1,6 +1,10 @@
 import m from 'mithril';
 
-export const Footer = () => {
+import { createLinkFromItem } from '../utils'
+
+export const Footer = (origVNode) => {
+  let theLink = origVNode.attrs.theLink || {}
+  let linkItem = createLinkFromItem(theLink)
   return {
     view: () =>
       m(
@@ -9,7 +13,7 @@ export const Footer = () => {
         m(
           'div',
           { class: 'content has-text-centered' },
-          m('a', {href: 'https://github.com/computePods' }, 'ComputePods'),
+          linkItem
         ),
       ),
   };

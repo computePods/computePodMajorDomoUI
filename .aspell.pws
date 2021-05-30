@@ -1,4 +1,4 @@
-personal_ws-1.1 en 32 
+personal_ws-1.1 en 36 
 AJV
 Bulma
 CodeJar
@@ -8,12 +8,16 @@ DOM
 FireFox
 FontAwesome
 GlobalEventHandlers
+JSON
 JoyLoL
+MainPage
 MajorDomo
 Mithril
 NPM
 SVG
 SplitJS
+SplitPanel
+SplitPanels
 UI
 Webpack
 addons

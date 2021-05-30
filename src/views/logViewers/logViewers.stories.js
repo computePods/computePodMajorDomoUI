@@ -4,7 +4,7 @@ import { LogViewers } from './logViewers';
 import { LogViewersData } from './logViewersData';
 
 export default {
-  title: 'Views/LogViewers',
+  title: 'Components/LogViewers',
   component: LogViewers,
 }
 

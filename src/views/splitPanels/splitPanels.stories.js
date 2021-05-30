@@ -3,7 +3,7 @@ import m from 'mithril';
 import { SplitPanels } from './splitPanels';
 
 export default {
-  title: 'Views/SplitPanels',
+  title: 'Components/SplitPanels',
   component: SplitPanels,
 }
 

@@ -4,7 +4,7 @@ import { FileEditors } from './fileEditors';
 import { FileEditorsData } from './fileEditorsData';
 
 export default {
-  title: 'Views/FileEditors',
+  title: 'Components/FileEditors',
   component: FileEditors,
 }
 

@@ -2,26 +2,29 @@
 
 import m from 'mithril';
 
-export const Header = {
-  view: ({ attrs }) => (
-    <header>
-      <div class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="/">ComputePods MajorDomo</a>
-          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-        <div class="navbar-menu">
-          <div class="navbar-end">
-            <button class="button is-primary">
-              click me!
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-  ),
-};
+import { createLinkFromItem } from '../utils'
+
+export function Header(origVNode) {
+  
+  let theLink = origVNode.attrs.theLink || {}
+  let linkItem = createLinkFromItem(theLink)
+  let theMenu = origVNode.attrs.theMenu || []
+  let menuItems = theMenu.map(createLinkFromItem)
+  
+  return {
+    view: (vnode) => m('header',{},
+      m('div', 
+        { 'class':"navbar", 'role':"navigation", 'aria-label':"main navigation" },
+        m('div', { 'class':"navbar-brand" },
+          linkItem,
+        ),
+        m('div', { 'class':"navbar-end navbar-item has-dropdown is-hoverable" },
+          m('a', { 'class':"navbar-link "}, 'Actions' ),
+          m('div', { 'class':"navbar-dropdown" },
+            ...menuItems
+          )
+        )
+      )
+    ),
+  }
+}

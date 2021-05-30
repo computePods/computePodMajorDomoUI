@@ -1,9 +1,10 @@
 import m from 'mithril';
 import Split from 'split.js';
 
-export const SplitPanels = () => {
+export const SplitPanels = (origVNode) => {
 
   function splitPanels(vnode) {
+
     var thePanels = [];
     
     vnode.dom.childNodes.forEach( anItem => {
@@ -13,7 +14,27 @@ export const SplitPanels = () => {
       }
       
     });
-    Split(thePanels);
+
+    var sizes = localStorage.getItem('split-sizes')
+    if (sizes) {
+      sizes = JSON.parse(sizes)
+    } else {
+      sizes = [50, 50] // default sizes
+    }
+    if (sizes.length != thePanels.length) {
+      sizes = []
+      var sizesLength = thePanels.length
+      for (var i = 0; i < sizesLength; i++) {
+        sizes[i] = 100/sizesLength
+      }
+    }
+
+    var split = Split(thePanels, {
+      sizes: sizes,
+      onDragEnd: function (sizes) {
+        localStorage.setItem('split-sizes', JSON.stringify(sizes))
+      },
+    })
   }
   
   return {
