@@ -1,7 +1,6 @@
 import m from 'mithril';
-//import Prism from '@prismjs/prism';
-import Prism from '@eStatic/prism';
-import { CodeJar } from '@codeJar/codejar';
+import Prism from 'eStatic/prism';
+import { CodeJar } from 'codeJar';
 
 export const FileEditors = () => {
   var cJar;
@@ -18,14 +17,14 @@ export const FileEditors = () => {
       console.log(CodeJar)
       cJar = CodeJar(editorNode, Prism.highlightElement, cJarOptions);
     },
-    view: (vnode) => { 
-      var fileStr = vnode.children[0]
+    view: (vnode) => {
+      var fileStr = vnode.attrs.model
       console.log("-------------------------------------")
       console.log(fileStr)
       console.log("-------------------------------------")
       return m('div',
         {
-          class: 'file-editor language-python', 
+          class: 'file-editor language-python',
           id: 'file-editor',
         },
         fileStr

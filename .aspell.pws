@@ -1,4 +1,4 @@
-personal_ws-1.1 en 36 
+personal_ws-1.1 en 46 
 AJV
 Bulma
 CodeJar
@@ -7,7 +7,9 @@ ConTeXt
 DOM
 FireFox
 FontAwesome
+Fontawesome
 GlobalEventHandlers
+JSDOM
 JSON
 JoyLoL
 MainPage
@@ -21,16 +23,24 @@ SplitPanels
 UI
 Webpack
 addons
+ava
+dropdown
 entityType
 fileserver
+globals
+logFile
 logfiles
 madge
 md
 mdx
 minified
 mitch
+mithril
 mixin
+navbar
+ospec
 prismjs
+requestAnimationFrame
 svg
 visualizer
 webpack

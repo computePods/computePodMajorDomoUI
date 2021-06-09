@@ -7,12 +7,15 @@ import m from 'mithril';
 // see the section on 'deep imports' in the following page:
 //   https://fontawesome.com/how-to-use/javascript-api/other/tree-shaking
 //
-import { icon         } from '@fortawesome/fontawesome-svg-core'
-import { faBars       } from '@fortawesome/free-solid-svg-icons/faBars'
-import { faCaretRight } from '@fortawesome/free-solid-svg-icons/faCaretRight'
-import { faCaretDown  } from '@fortawesome/free-solid-svg-icons/faCaretDown'
+import { library, icon } from '@fortawesome/fontawesome-svg-core'
+//import { faBars, faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { faBars       } from '@fortawesome/free-solid-svg-icons/faBars.js'
+import { faCaretRight } from '@fortawesome/free-solid-svg-icons/faCaretRight.js'
+import { faCaretDown  } from '@fortawesome/free-solid-svg-icons/faCaretDown.js'
 
-// see the section on 'abstract icons' in the following page: 
+library.add(faBars, faCaretRight, faCaretDown)
+
+// see the section on 'abstract icons' in the following page:
 //   https://fontawesome.com/how-to-use/javascript-api/methods/icon
 //
 const caretDown = icon(faCaretDown, {
@@ -74,7 +77,7 @@ export function createLinkFromItem(anItem) {
   if ('link' in anItem && 'text' in anItem) {
     let classStr = anItem.class || "navbar-item"
     if (typeof anItem.link == 'function') {
-      return m('span', { 'class': classStr, 'onclick': anItem.link }, anItem.text)    
+      return m('span', { 'class': classStr, 'onclick': anItem.link }, anItem.text)
     } else if (typeof anItem.link == 'string') {
       return m('a', { 'class': classStr, 'href': anItem.link }, anItem.text)
     } else if (typeof anItem.link == 'boolean') {

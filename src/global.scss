@@ -1,8 +1,8 @@
 @charset "utf-8";
 
-@use '@bulma/bulma';
+@use 'bulma';
 @use '@fortawesome/fontawesome-svg-core/styles';
-@use '@eStatic/prism';
+@use 'eStatic/prism.css';
 //@use '@eStatic/highlightjs/styles/default';
 
 @use 'views/header/header';

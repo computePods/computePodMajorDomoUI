@@ -1,14 +1,13 @@
 import m from 'mithril';
-//import Prism from '@prismjs/prism';
-import Prism from '@eStatic/prism';
-//import hljs from '@eStatic/highlightjs/highlight.pack';
+import Prism from 'eStatic/prism';
+//import hljs from 'eStatic/highlightjs/highlight.pack';
 
 export const LogViewers = () => {
   return {
-    view: (vnode) => { 
+    view: (vnode) => {
 //      console.log(Prism.languages)
 //      console.log(vnode.children)
-      var origHtml = vnode.children[0]
+      var origHtml = vnode.attrs.model
       var prismHtml = Prism.highlight(
         origHtml,
         Prism.languages.log,

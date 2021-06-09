@@ -1,4 +1,6 @@
 interfaces
+.parcel-cache
+distMCV
 
 # Logs
 logs

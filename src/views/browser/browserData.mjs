@@ -37,7 +37,7 @@ export const BrowserData = () => {
     },
     files: {
       thingA : true,
-      thingB : true,	
+      thingB : true,
     },
   }
 }

@@ -1,9 +1,9 @@
 import m from 'mithril'
 
-import { createHiddenSVGForLaterUse, useIcon } from '../utils'
-import { Header } from '../header/header'
-import { SplitPanels } from '../splitPanels/splitPanels'
-import { Footer } from '../footer/footer'
+import { createHiddenSVGForLaterUse, useIcon } from '../utils.mjs'
+import { Header } from '../header/header.mjs'
+import { SplitPanels } from '../splitPanels/splitPanels.mjs'
+import { Footer } from '../footer/footer.mjs'
 
 // see: https://mithril.js.org/components.html#closure-component-state
 

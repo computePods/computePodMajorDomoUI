@@ -5,7 +5,17 @@ interface, we will use a mixture of
 
 - [Storybook](https://storybook.js.org/),
 
-- [Jest](https://jestjs.io/),
+- [Mithril-ospec](https://github.com/MithrilJS/ospec),
+
+- [Mithril-Query](https://github.com/MithrilJS/mithril-query)
+
+Our tests, like our stories, will be located *beside* the code it tests in 
+files named `<aName>.tests.js` (similar to Storybook's 
+`<aName>.stories.js`) 
+
+*If* ospec/Mithril-query does not work for our use, we could consider:
+
+- [Jest](https://jestjs.io/)
 
 - [Puppeteer](https://github.com/puppeteer/puppeteer), and
 
@@ -34,8 +44,12 @@ reloading Markdown file server.
 The current version of md-fileserver needs the following "fix" run, after 
 any re-installation, in a shell in the base directory of this project: 
 
-      cd node_modules/md-fileserver/node_modules
-      ln -s ../../highlight.js .
+```
+  cd node_modules/md-fileserver/node_modules
+  ln -s ../../highlight.js .
+```
+
+(Or install globally and we do not seem to have this problem)
 
 ## Unit and integration testing
 
