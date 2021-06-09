@@ -1,7 +1,7 @@
 import m from 'mithril';
 
-import { Header } from '../header/header'
-import { createLinkFromItem } from '../utils'
+import { Header } from '../header/header.mjs'
+import { createLinkFromItem } from '../utils.mjs'
 
 export const Panel = (origVNode) => {
   let theLink = origVNode.attrs.theLink || {}
@@ -12,7 +12,7 @@ export const Panel = (origVNode) => {
         'div',
         { class: 'panel' },
         m(Header, {
-        	
+
         }),
         m(
           'div',

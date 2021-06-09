@@ -2,18 +2,18 @@
 
 import m from 'mithril';
 
-import { createLinkFromItem } from '../utils'
+import { createLinkFromItem } from '../utils.mjs'
 
 export function Header(origVNode) {
-  
+
   let theLink = origVNode.attrs.theLink || {}
   let linkItem = createLinkFromItem(theLink)
   let theMenu = origVNode.attrs.theMenu || []
   let menuItems = theMenu.map(createLinkFromItem)
-  
+
   return {
     view: (vnode) => m('header',{},
-      m('div', 
+      m('div',
         { 'class':"navbar", 'role':"navigation", 'aria-label':"main navigation" },
         m('div', { 'class':"navbar-brand" },
           linkItem,

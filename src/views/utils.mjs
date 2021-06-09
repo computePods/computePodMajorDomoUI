@@ -8,7 +8,6 @@ import m from 'mithril';
 //   https://fontawesome.com/how-to-use/javascript-api/other/tree-shaking
 //
 import { library, icon } from '@fortawesome/fontawesome-svg-core'
-//import { faBars, faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { faBars       } from '@fortawesome/free-solid-svg-icons/faBars.js'
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons/faCaretRight.js'
 import { faCaretDown  } from '@fortawesome/free-solid-svg-icons/faCaretDown.js'
@@ -72,6 +71,9 @@ export function useIcon(useName, options={hidden: false, width: iconWidth }) {
     )
   )
 }
+
+/////////////////////////////////////////////////////////////////////////////
+// link creation
 
 export function createLinkFromItem(anItem) {
   if ('link' in anItem && 'text' in anItem) {

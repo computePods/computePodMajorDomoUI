@@ -2,8 +2,6 @@ var mq = require('mithril-query')
 
 var mt = require("../../mithril-testing.cjs")
 
-var Panels = import('./panels.mjs')
-var MainPage = import('./mainPage.mjs')
 
 /*
   The Panels component manages the "Panels" used by the SplitPanels View.
@@ -11,15 +9,17 @@ var MainPage = import('./mainPage.mjs')
   This file contains the tests for the Panels component.
 */
 
-mt.test('foo', t => {
-	t.pass();
-});
+mt.test('Panels', async function(t) {
+  var panels = await import('./panels.mjs')
+  //var MainPage = await import('./mainPage.mjs')
 
-mt.test('foo2', t => {
-	t.pass();
-});
+  console.log(typeof(panels.Panels))
+  console.log(panels.Panels)
 
-mt.test('bar', async t => {
-	const bar = Promise.resolve('bar');
-	t.is(await bar, 'bar');
+	t.truthy(panels.Panels.hasOwnProperty('thePanels'))
+	t.truthy(panels.Panels.hasOwnProperty('createPanels'))
+	t.truthy(panels.Panels.hasOwnProperty('openAPanel'))
+	panels.Panels.createPanels(5,1)
+
+  console.log(panels.Panels)
 });

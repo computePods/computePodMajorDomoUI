@@ -13,8 +13,9 @@
   },
   "scripts": {
     "createMCVapp": "node ./mcv/createMCVapp.js",
-    "test": "ava --watch",
-    "mcv": "parcel serve './mcv/mcv.html' --no-hmr --log-level verbose --dist-dir distMCV",
+    "test": "ava --verbose --watch",
+    "mcv": "parcel serve './mcv/mcv.html' --log-level verbose --dist-dir distMCV",
+    "dev": "npm-run-all -r -p createMCVapp mcv",
     "start": "parcel serve",
     "build": "parcel build"
   },
