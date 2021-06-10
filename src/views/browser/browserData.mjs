@@ -1,41 +1,34 @@
 export const BrowserData = () => {
   return {
-    name: 'browser',
-    directories: {
+    branches: {
       dirA: {
-        name: 'dirA',
-        directories: {
+        branches: {
           dirA : {
-            name: 'dirA',
-          	files: {
+            branches: {
               thingA : true,
-      	      thingB : true,
-          	}
-          }
+    	        thingB : true,
+            }
+          },
+     	    thingA : true,
+     	    thingB : true,
         },
-        files: {
-      	  thingA : true,
-      	  thingB : true,
-      	},
       },
       dirB: {
-        name: 'dirB',
-        directories: {
+        branches: {
           dirA : {
-            name: 'dirB',
-          	files: {
-              thingA : true,
-      	      thingB : true,
-          	},
-          },
-        },
-        files: {
-      	  thingA : true,
-      	  thingB : true,
-      	},
+            branches: {
+              dirB: {
+                branches: {
+                  thingA : true,
+    	            thingB : true,
+                }
+              },
+        	    thingA : true,
+        	    thingB : true,
+            }
+          }
+        }
       },
-    },
-    files: {
       thingA : true,
       thingB : true,
     },

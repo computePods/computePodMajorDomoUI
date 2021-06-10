@@ -2,6 +2,8 @@ import m from 'mithril';
 
 import { createHiddenSVGForLaterUse, useIcon } from '../utils.mjs'
 
+import { Artefacts } from '../../models/artefacts.mjs'
+
 // see: https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Styling_lists
 // see: https://developer.mozilla.org/en-US/docs/Web/CSS/list-style
 
@@ -14,13 +16,11 @@ import { createHiddenSVGForLaterUse, useIcon } from '../utils.mjs'
 const initiallyHiddenDefault = true
 //const initiallyHiddenDefault = false
 
-function MenuOnlyListEntry(initialVNode) {
+function MenuOnlyListEntry(aPath, aNode) {
   let hidden   = ('initialHidden' in initialVNode.attrs) ? initialVNode.attrs.initialHidden : initiallyHiddenDefault
-  let thePath  = initialVNode.attrs.thePath || 'silly'
-  let theName  = initialVNode.attrs.theName || 'sillier'
-  let entryKey = thePath+'-'+theName
+  let entryKey = '-'.join(aPath)
   let menuBarsSpan   = useIcon('menuBars',   { key: 'menuBars' })
-  let textSpan       = m('span',             { key: 'text'}, theName)
+  let textSpan       = m('span',             { key: 'text'}, aPath[aPath.length-1])
   return {
     view: function(vnode) {
       return m(
@@ -39,40 +39,19 @@ function MenuOnlyListEntry(initialVNode) {
   }
 }
 
-function CloseableListEntry(initialVNode) {
+function viewCloseableListEntry(aPath, aNode, branches) {
   let hidden  =  ('initialHidden' in initialVNode.attrs) ? initialVNode.attrs.initialHidden : initiallyHiddenDefault
-  let thePath =  initialVNode.attrs.thePath  || 'silly'
-  let theModel = initialVNode.attrs.theModel || { }
-  let entryKey = thePath+'-'+theModel.name
+  let entryKey = '-'.join(thePath)
   let caretRightSpan = useIcon('caretRight', { key: 'caretRight', hidden: !initiallyHiddenDefault })
   let caretDownSpan  = useIcon('caretDown',  { key: 'caretDown',  hidden:  initiallyHiddenDefault })
   let menuBarsSpan   = useIcon('menuBars',   { key: 'menuBars' })
-  let textSpan       = m('span',             { key: 'text'}, theModel.name)
-  let dirModels = theModel.directories || {}
-  let dirKeys   = Object.keys(dirModels).sort()
-  let dirItems  = dirKeys.map(function(aDirKey) {
-  	return m(
-  	  CloseableListEntry,
-  	  { thePath: entryKey, theModel: dirModels[aDirKey] }
-  	)
-  })
-  let fileModels = theModel.files || {}
-  let fileKeys   = Object.keys(fileModels).sort()
-  let fileItems  = fileKeys.map(function(aFileKey) {
-  	return m(
-  	  MenuOnlyListEntry,
-  	  { thePath: entryKey, theName: aFileKey }
-  	)
-  })
+  let textSpan       = m('span',             { key: 'text'}, aPath[aPath.length-1])
   function openCloseListEntry(anEvent) {
     console.log("Toggling CloseableListEntry::openCloseListEntry for "+entryKey)
     caretRightSpan.dom.hidden = !caretRightSpan.dom.hidden
     caretDownSpan.dom.hidden  = !caretDownSpan.dom.hidden
-    dirItems.map(function(aDirItem) {
-      aDirItem.dom.hidden = !aDirItem.dom.hidden
-    })
-    fileItems.map(function(aFileItem) {
-      aFileItem.dom.hidden = !aFileItem.dom.hidden
+    branches.map(function(antem) {
+      anItem.dom.hidden = !anItem.dom.hidden
     })
   }
   caretRightSpan.attrs.onclick = openCloseListEntry
@@ -91,10 +70,20 @@ function CloseableListEntry(initialVNode) {
   	      caretDownSpan,
   	      menuBarsSpan,
   	      textSpan,
-  	      m('ul', { key: 'dirItems', class: 'artifact-browser' },  dirItems),
-  	      m('ul', { key: 'fileItems', class: 'artifact-browser' }, fileItems),
+  	      m('ul', { key: 'items', class: 'artifact-browser' },  branches),
   	    ]
   	  )
+  	}
+  }
+}
+
+function BuildBrowser(initialVnode) {
+  return {
+  	view: function(vnode) {
+  		return Artefacts.walkOverArtefacts(
+  		  viewClosableListEntry(aPath, aNode, branches), // branch function
+  			viewMenuOnlyListEntry(aPath, aNode)            // leaf function
+  		)
   	}
   }
 }
@@ -108,12 +97,7 @@ export const Browser = (initialVnode) => {
       	createHiddenSVGForLaterUse(),
       	m('ul',
       	  m(
-      	    CloseableListEntry,
-      	    {
-      	      thePath: 'silly',
-      	      theModel: vnode.attrs.model,
-      	      initialHidden: false,
-      	    }
+      	    BuildBrowser,
       	  )
       	)
       )

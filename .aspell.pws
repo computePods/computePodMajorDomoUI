@@ -1,7 +1,8 @@
-personal_ws-1.1 en 46 
+personal_ws-1.1 en 57 
 AJV
 Bulma
 CodeJar
+CommonJS
 ComputePods
 ConTeXt
 DOM
@@ -16,6 +17,7 @@ MainPage
 MajorDomo
 Mithril
 NPM
+OpenEntities
 SVG
 SplitJS
 SplitPanel
@@ -24,13 +26,17 @@ UI
 Webpack
 addons
 ava
+backend
+createLinkFromItem
 dropdown
 entityType
 fileserver
 globals
+initiallyHiddenDefault
 logFile
 logfiles
 madge
+mcv
 md
 mdx
 minified
@@ -38,10 +44,15 @@ mitch
 mithril
 mixin
 navbar
+needsSaving
+openAPanel
 ospec
 prismjs
+reCreatePanels
 requestAnimationFrame
 svg
+thePanels
+un
 visualizer
 webpack
 webpages
