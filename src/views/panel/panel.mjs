@@ -3,19 +3,47 @@ import m from 'mithril';
 import { Header } from '../header/header.mjs'
 import { createLinkFromItem } from '../utils.mjs'
 
+// viewers
 import { Browser      } from '../browser/browser.mjs';
 import { FileEditors  } from '../fileEditors/fileEditors.mjs';
 import { LogViewers   } from '../logViewers/logViewers.mjs';
+
+// models
+import { Panels       } from '../../models/panels/panels.mjs'
 import { OpenEntities } from '../../models/openEntities/openEntities.mjs'
 
+function getContentsFor(entityName) {
+  console.log('getting contents for ['+entityName+']')
+
+  if (entityName == 'artefactBrowser') return m(Browser)
+
+  switch(OpenEntities.getEntityType(entityName)) {
+    case 'logViewer' :
+      return m(LogViewers, { entity: entityName })
+      break;
+    case 'fileEditor' :
+      return m(FileEditors, { entity: entityName })
+      break;
+    default:
+      return m('div')
+  }
+}
+
+function getTitleFor(entityName) {
+  console.log('getting title for ['+entityName+']')
+
+  if (entityName == 'artefactBrowser') return 'Artefact Browser'
+  return 'silly '+entityName
+}
+
 export const Panel = (origVNode) => {
-  let theLink = origVNode.attrs.theLink || {}
-  let theContents = m('div')
+  let panelID     = origVNode.attrs.panelID || 'unknown-split'
+  let panelNum    = origVNode.attrs.panelNum || 1
   function openArtefactBrowser() {
-  	theContents = m(Browser)
+  	Panels.setPanelEntityName(panelNum, 'artefactBrowser')
   }
   function clearPanel() {
-  	theContents = m('div')
+  	Panels.setPanelEntityName(panelNum, 'none')
   }
   var initialMenu = [
   	{ link: clearPanel,          text: 'Clear'   },
@@ -23,31 +51,24 @@ export const Panel = (origVNode) => {
   	{ link: openArtefactBrowser, text: 'Browser' }
   ]
   let theMenu = OpenEntities.compileMenu(initialMenu, function(entityName) {
-    console.log(entityName)
-    switch(OpenEntities.getEntityType(entityName)) {
-      case 'logViewer' :
-        theContents = m(LogViewers, { entity: entityName })
-        break;
-      case 'fileEditor' :
-        theContents = m(FileEditors, { entity: entityName })
-        break;
-      case 'artefact-browser':
-        break;
-      default:
-        theContents = m('div')
-    }
+    Panels.setPanelEntityName(panelNum, entityName)
   })
   return {
     view: () =>
       m(
         'div',
-        { class: 'panel' },
+        { class: 'panel', id: panelID },
         m(Header, {
+          theLink: {
+          	link: '',
+          	text: getTitleFor(Panels.getPanelEntityName(panelNum))
+          },
           theMenu: theMenu
         }),
         m(
           'div',
-          theContents
+          { class: 'panel-contents'},
+          getContentsFor(Panels.getPanelEntityName(panelNum))
         ),
       ),
   };

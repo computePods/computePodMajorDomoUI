@@ -37,49 +37,49 @@ test("thePanels", async function(t) {
   t.is(Panels.thePanels.length, 5)
 
   t.false(Panels.thePanels[0].hidden)
-  t.is(Panels.thePanels[0].theEntity, "none")
+  t.is(Panels.thePanels[0].entityName, "none")
 
   for (var i = 1; i<5; i++) {
   	t.true(Panels.thePanels[i].hidden)
-    t.is(Panels.thePanels[i].theEntity, "none")
+    t.is(Panels.thePanels[i].entityName, "none")
   }
 
   // openAPanel opens the next hidden panel
   Panels.openAPanel()
 
   t.false(Panels.thePanels[0].hidden)
-  t.is(Panels.thePanels[0].theEntity, "none")
+  t.is(Panels.thePanels[0].entityName, "none")
   t.false(Panels.thePanels[1].hidden)
-  t.is(Panels.thePanels[1].theEntity, "none")
+  t.is(Panels.thePanels[1].entityName, "none")
 
   for (var i = 2; i<5; i++) {
   	t.true(Panels.thePanels[i].hidden)
-    t.is(Panels.thePanels[i].theEntity, "none")
+    t.is(Panels.thePanels[i].entityName, "none")
   }
 
   // close the first panel
   Panels.closePanel(0)
 
   t.true(Panels.thePanels[0].hidden)
-  t.is(Panels.thePanels[0].theEntity, "none")
+  t.is(Panels.thePanels[0].entityName, "none")
   t.false(Panels.thePanels[1].hidden)
-  t.is(Panels.thePanels[1].theEntity, "none")
+  t.is(Panels.thePanels[1].entityName, "none")
 
   for (var i = 2; i<5; i++) {
   	t.true(Panels.thePanels[i].hidden)
-    t.is(Panels.thePanels[i].theEntity, "none")
+    t.is(Panels.thePanels[i].entityName, "none")
   }
 
   // you are not allowed to close the last panel
   Panels.closePanel(1)
 
   t.true(Panels.thePanels[0].hidden)
-  t.is(Panels.thePanels[0].theEntity, "none")
+  t.is(Panels.thePanels[0].entityName, "none")
   t.false(Panels.thePanels[1].hidden)
-  t.is(Panels.thePanels[1].theEntity, "none")
+  t.is(Panels.thePanels[1].entityName, "none")
 
   for (var i = 2; i<5; i++) {
   	t.true(Panels.thePanels[i].hidden)
-    t.is(Panels.thePanels[i].theEntity, "none")
+    t.is(Panels.thePanels[i].entityName, "none")
   }
 })

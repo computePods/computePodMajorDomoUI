@@ -23,7 +23,9 @@ export const Panels = {
     for (let i = 0; i < maxNumSplits; i++) {
     	this.thePanels[i] = {
     		hidden: (i < numOpenSplits ? false : true),
-    		theEntity: "none"
+    		id: 'split-'+(i+1).toString(),
+    		num: i,
+    		entityName: "none"
     	}
     }
   },
@@ -32,6 +34,19 @@ export const Panels = {
   		if (aPanel.theEntity == anEntityName) return true
   	}
   	return false
+  },
+  setPanelEntityName: function(panelNum, anEntityName) {
+  	if ((panelNum < 1) || (this.maxNumSplits < panelNum)) return
+  	this.thePanels[panelNum].entityName = anEntityName
+  },
+  getPanelEntityName: function(panelNum) {
+  	if ((panelNum < 1) || (this.maxNumSplits < panelNum)) {
+  	  console.log('panel ['+panelNum+'] is out of bounds!')
+  	  return 'none'
+  	}
+  	var entityName = this.thePanels[panelNum].entityName
+    console.log('panel '+panelNum.toString()+' is ['+entityName+']')
+  	return entityName
   },
   openAPanel: function() {
     // find the first hidden panel
@@ -51,6 +66,6 @@ export const Panels = {
   	}
   	if (numOpenPanels < 2) return
   	this.thePanels[aPanelNum].hidden = true
-  	this.thePanels[aPanelNum].theEntity = "none"
+  	this.thePanels[aPanelNum].entityName = "none"
   }
 }

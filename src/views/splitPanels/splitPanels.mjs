@@ -1,4 +1,6 @@
 import m from 'mithril';
+
+import { Panel } from '../panel/panel.mjs'
 import Split from 'split.js';
 
 export const SplitPanels = function(origVNode) {
@@ -11,47 +13,68 @@ export const SplitPanels = function(origVNode) {
   let thePanelIDs = [];
   for (var i = 0; i < maxNumSplits; i++) {
     thePanelIDs[i] = 'split-'+(i+1).toString()
-    thePanels[i] = m(
-      'div',
-      { 
-        class: 'content has-text-centered split-panel',
-        id: thePanelIDs[i]
-      },
-      'This is split-'+(i+1).toString()
-    )
+    thePanels[i] = m(Panel, { panelID: thePanelIDs[i], panelNum: i })
     thePanelIDs[i] = '#'+thePanelIDs[i]
   }
 
   function splitPanels(vnode) {
-    
-    var sizes = localStorage.getItem('split-sizes')
-    if (sizes) {
-      sizes = JSON.parse(sizes)
-    } else {
-      sizes = [50, 50] // default sizes
-    }
-    var sizesLength = thePanels.length
-    if (sizes.length != sizesLength) {
-      sizes = []
-      for (var i = 0; i < numOpenSplits; i++) {
-        sizes[i] = 100/numOpenSplits
-      }
-      for (var i = numOpenSplits; i < sizesLength; i++) {
-      	sizes[i] = 0
-      }
-    }
-    var minSizes = []
-    for (var i = 0; i < sizesLength; i++) minSizes[i] = 0
 
-    var split = Split(thePanelIDs, {
-      sizes: sizes,
-      minSizes: minSizes,
+    // reload the current split-sizes from local storage
+    //
+    var origSizes = localStorage.getItem('split-sizes')
+    if (origSizes) {
+      origSizes = JSON.parse(origSizes)
+    } else {
+      origSizes = []
+    }
+    if (origSizes.length < 1) {
+      for (var i = 0 ; i < numOpenSplits; i++ ) {
+        origSizes[i] = 100/numOpenSplits // default sizes
+      }
+    }
+
+    // compute how to resize the original splits
+    //
+    var expansionFactor = 1.0
+    var sumOrigSizes = origSizes.reduce((sum, aValue) => sum + aValue)
+    if (sumOrigSizes < 1.0) sumOrigSizes = 1.0
+    if (origSizes.length != numOpenSplits) {
+      expansionFactor = numOpenSplits/origSizes.length
+    } else if (sumOrigSizes < 99) {
+    	expansionFactor = 100/sumOrigSizes
+    }
+
+    // Now we resize the splits and ensure we only view the open splits
+    //
+    var sizes        = []
+    var minSizes     = []
+    var openPanelIDs = []
+    for (var i = 0; i < numOpenSplits; i++) {
+      sizes[i]        = origSizes[i] * expansionFactor
+    	minSizes[i]     = 0
+    	openPanelIDs[i] = thePanelIDs[i]
+    }
+
+    // Hide the unopened splits
+    //
+    for (var i = numOpenSplits; i < maxNumSplits; i++ ) {
+    	thePanels[i].dom.hidden = true
+    }
+
+    // console.log(origSizes)
+    // console.log(sizes)
+    // console.log(minSizes)
+    // console.log(openPanelIDs)
+
+    var split = Split(openPanelIDs, {
+      sizes:     sizes,
+      minSizes:  minSizes,
       onDragEnd: function (sizes) {
         localStorage.setItem('split-sizes', JSON.stringify(sizes))
       },
     })
   }
-  
+
   return {
     oncreate: splitPanels,
     onupdate: splitPanels,

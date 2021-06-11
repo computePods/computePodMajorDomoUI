@@ -77,11 +77,16 @@ export function useIcon(useName, options={hidden: false, width: iconWidth }) {
 // link creation
 
 export function createLinkFromItem(anItem) {
+  console.log('createLinkfromItem')
+  console.log(anItem)
   if ('link' in anItem && 'text' in anItem) {
     let classStr = anItem.class || "navbar-item"
     if (typeof anItem.link == 'function') {
       return m('span', { 'class': classStr, 'onclick': anItem.link }, anItem.text)
     } else if (typeof anItem.link == 'string') {
+      if (anItem.link == '') {
+        return m('span', { 'class': classStr }, anItem.text)
+      }
       return m('a', { 'class': classStr, 'href': anItem.link }, anItem.text)
     } else if (typeof anItem.link == 'boolean') {
       return m('hr', { 'class':'navbar-divider'})
