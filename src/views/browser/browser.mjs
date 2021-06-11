@@ -61,7 +61,7 @@ function viewCloseableListEntry(aPath, aNode, branches) {
     [
       caretRightSpan,
       caretDownSpan,
-      menuBarsSpan,
+//      menuBarsSpan,
       textSpan,
       m('ul', { key: 'items', class: 'artifact-browser' },  branches),
     ]

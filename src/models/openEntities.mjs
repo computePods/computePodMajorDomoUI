@@ -17,12 +17,12 @@ export const OpenEntities = {
   compileMenu: function(initialMenu, openEntityCallback) {
     // each menu item *is* an object with `link` and `text` properties
     // (see ../views/utils.mjs :: createLinkFromItem)
-    initialMenu.append({
+    initialMenu.push({
     	link: false,
     	text: ""
     })
     for (let anEntityName in this.theEntities) {
-    	initialMenu.append({
+    	initialMenu.push({
     		link: function() {
     			openEntityCallback(anEntityName)
     		},
@@ -67,13 +67,13 @@ export const OpenEntities = {
   entitiesNeedingSaving: function() {
   	var needsSaving = []
   	for (let anEntity in this.theEntities) {
-  		if (this.theEntities[anEntity].needsSaving) needsSaving.append(anEntity)
+  		if (this.theEntities[anEntity].needsSaving) needsSaving.push(anEntity)
   	}
   	return needsSaving
   },
   closeAllEntities: function() {
-    var needsSaving = entitiesNeedingSaving()
-    var entityKeys = this.theEntities.keys()
+    var needsSaving = this.entitiesNeedingSaving()
+    var entityKeys = Object.keys(this.theEntities)
     for (let aKey of entityKeys) {
     	if (! needsSaving.includes(aKey)) {
     		delete this.theEntities[aKey]
