@@ -23,7 +23,7 @@ function recurseOverArtefacts(aPath, someArtefacts, branchFunction, leafFunction
 		  aPath.push(aBranchName),
 		  branches.push(
 		    recurseOverArtefacts(
-		      aPath,
+		      aPath.slice(),
 		      someArtefacts.branches[aBranchName],
 		      branchFunction,
 		      leafFunction
@@ -32,7 +32,7 @@ function recurseOverArtefacts(aPath, someArtefacts, branchFunction, leafFunction
 		  aPath.pop()
 	  }
 	}
-	if (branches) {
+	if (0 < branches.length) {
 		return branchFunction(aPath, someArtefacts, branches)
 	}
 	return leafFunction(aPath, someArtefacts)

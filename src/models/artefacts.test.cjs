@@ -36,12 +36,31 @@ test('paths', async function(t) {
 	t.deepEqual(Artefacts.splitPath('/silly/'), ['silly'])
 })
 
-function branchFunction(aPath, aNode, branches) {
 
+var branchData = {
+	paths: [],
+	nodes: [],
+	branches: []
+}
+
+function branchFunction(aPath, aNode, branches) {
+  var pathStr = '<'+aPath.join('-')+'>'
+  branchData.paths.push(pathStr)
+  branchData.nodes.push(aNode)
+  branchData.branches.push(branches)
+  return pathStr
+}
+
+var leafData = {
+	paths: [],
+	nodes: []
 }
 
 function leafFunction(aPath, aNode) {
-
+  var pathStr = '{'+aPath.join('-')+'}'
+  leafData.paths.push(pathStr)
+  leafData.nodes.push(aNode)
+  return pathStr
 }
 
 test('theArtefacts', async function(t) {
@@ -80,7 +99,20 @@ test('theArtefacts', async function(t) {
   t.false(Artefacts.isLeaf(''))
   t.true(Artefacts.isLeaf('silly'))
 
-  Artefacts.walkOverArtefacts(branchFunction, leafFunction)
+  t.is(Artefacts.walkOverArtefacts(branchFunction, leafFunction), '<>')
+  t.deepEqual(branchData, {
+     branches: [ [ '{silly}' ] ],
+     nodes: [ {
+         branches: { silly: { someMoreInfo: 'some More Info' } },
+         someInfo: 'some Info',
+       },
+     ],
+     paths: [ '<>' ]
+  })
+  t.deepEqual(leafData, {
+     nodes: [ { someMoreInfo: 'some More Info'  } ],
+     paths: [ '{silly}' ]
+  })
 
   Artefacts.clearAllArtefacts()
 

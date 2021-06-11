@@ -28,7 +28,8 @@ const menuBars = icon(faBars, {
 })
 //
 const knownIconIDs = 'caretDown caretRight menuBars'
-const iconWidth = 14 // just slightly less than 1em
+//const iconWidth = 14 // just slightly less than 1em
+const iconWidth = 18 // just slightly less more than 1em
 
 // see: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/use
 //
@@ -50,7 +51,7 @@ export function useIcon(useName, options={hidden: false, width: iconWidth }) {
   delete options.key
   var hidden = ('hidden' in options) ? options['hidden'] : false
   delete options.hidden
-  var width  = options['width'] || 14
+  var width  = options['width'] || iconWidth
   delete options.width
   var theClass = ('class' in options) ? options['class'] : ""
   theClass = theClass.split(' ')

@@ -17,7 +17,6 @@ export default {
   oninit: function(vnode) {
   	Artefacts.clearAllArtefacts()
   	mergeBrowserData('', BrowserData())
-  	console.dir(Artefacts.theArtefacts)
   },
 	view: function(vnode) {
 		return m(Browser)
