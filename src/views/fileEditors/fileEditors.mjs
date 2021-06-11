@@ -2,6 +2,8 @@ import m from 'mithril';
 import Prism from 'eStatic/prism';
 import { CodeJar } from 'codeJar';
 
+import { OpenEntities } from '../../models/openEntities/openEntities.mjs'
+
 export const FileEditors = () => {
   var cJar;
   var cJarOptions;
@@ -18,16 +20,16 @@ export const FileEditors = () => {
       cJar = CodeJar(editorNode, Prism.highlightElement, cJarOptions);
     },
     view: (vnode) => {
-      var fileStr = vnode.attrs.model
-      console.log("-------------------------------------")
-      console.log(fileStr)
-      console.log("-------------------------------------")
+      var entityName = vnode.attrs.entity
       return m('div',
         {
           class: 'file-editor language-python',
           id: 'file-editor',
         },
-        fileStr
+        ( OpenEntities.getEntityType(entityName) == 'fileEditor' ?
+          OpenEntities.getEntityValue(entityName) :
+          entityName+' is not viewable with a File Editor'
+        )
       )
     }
   }

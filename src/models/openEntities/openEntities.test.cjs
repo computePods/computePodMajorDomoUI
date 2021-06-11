@@ -19,7 +19,8 @@ test('OpenEntities', async function(t) {
 
   t.assert(Entities.hasOwnProperty('compileMenu'))
   t.assert(Entities.hasOwnProperty('openEntity'))
-  t.assert(Entities.hasOwnProperty('getEntity'))
+  t.assert(Entities.hasOwnProperty('getEntityType'))
+  t.assert(Entities.hasOwnProperty('getEntityValue'))
   t.assert(Entities.hasOwnProperty('markEntitySaved'))
   t.assert(Entities.hasOwnProperty('markEntityNeedsSaving'))
   t.assert(Entities.hasOwnProperty('closeEntity'))
@@ -32,14 +33,17 @@ test('theEntities', async function(t) {
 
 	t.deepEqual(Entities.theEntities, {})
 
-  Entities.openEntity('silly', 'sillyValue')
-  t.deepEqual(Entities.getEntity('silly'), 'sillyValue')
+  Entities.openEntity('silly', 'sillyType', 'sillyValue')
+  t.deepEqual(Entities.getEntityValue('silly'), 'sillyValue')
+  t.deepEqual(Entities.getEntityType('silly'), 'sillyType')
   Entities.markEntityNeedsSaving('silly')
 
-  Entities.openEntity('sillier', 'sillierValue')
+  Entities.openEntity('sillier', 'sillierType', 'sillierValue')
 
-  t.deepEqual(Entities.getEntity('silly'),   'sillyValue')
-  t.deepEqual(Entities.getEntity('sillier'), 'sillierValue')
+  t.deepEqual(Entities.getEntityValue('silly'),   'sillyValue')
+  t.deepEqual(Entities.getEntityType('silly'),   'sillyType')
+  t.deepEqual(Entities.getEntityValue('sillier'), 'sillierValue')
+  t.deepEqual(Entities.getEntityType('sillier'), 'sillierType')
 
   var theMenu = Entities.compileMenu(
     [ { link: 'sillyMenuLink', text: 'sillyMenuText'} ],
@@ -61,7 +65,7 @@ test('theEntities', async function(t) {
 
 	Entities.closeAllEntities()
 	t.deepEqual(Entities.theEntities, {
-	  silly: { needsSaving: true, value: 'sillyValue' }
+	  silly: { needsSaving: true, type: 'sillyType', value: 'sillyValue' }
   })
 
 

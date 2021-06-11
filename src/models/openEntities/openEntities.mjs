@@ -31,21 +31,28 @@ export const OpenEntities = {
     }
     return initialMenu
   },
-  openEntity: function(anEntityName, anEntityValue) {
+  openEntity: function(anEntityName, anEntityType, anEntityValue) {
     if (this.theEntities.hasOwnProperty(anEntityName)) {
     	if (this.theEntities[anEntityName].needsSaving)	return false
     }
   	this.theEntities[anEntityName] = {
   		needsSaving: false,
+  		type: anEntityType,
   		value: anEntityValue
   	}
   	return true
   },
-  getEntity: function(anEntityName) {
+  getEntityType: function(anEntityName) {
+  	if (this.theEntities.hasOwnProperty(anEntityName)) {
+  		return this.theEntities[anEntityName].type
+  	}
+  	return 'unknown'
+  },
+  getEntityValue: function(anEntityName) {
   	if (this.theEntities.hasOwnProperty(anEntityName)) {
   		return this.theEntities[anEntityName].value
   	}
-  	return {}
+  	return ''
   },
   markEntitySaved: function(anEntityName) {
   	if (this.theEntities.hasOwnProperty(anEntityName)) {

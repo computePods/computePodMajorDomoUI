@@ -1,7 +1,7 @@
 import m from 'mithril';
 
 import { useIcon   } from '../utils.mjs'
-import { Artefacts } from '../../models/artefacts.mjs'
+import { Artefacts } from '../../models/artefacts/artefacts.mjs'
 
 // see: https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Styling_lists
 // see: https://developer.mozilla.org/en-US/docs/Web/CSS/list-style

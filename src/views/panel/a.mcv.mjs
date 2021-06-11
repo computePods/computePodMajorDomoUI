@@ -4,14 +4,18 @@ import m from 'mithril';
 
 import { Panel } from './panel';
 
-import { OpenEntities } from '../../models/openEntities.mjs'
+import { OpenEntities } from '../../models/openEntities/openEntities.mjs'
+import { InstallFileEditorExample } from '../../models/openEntities/openEntities.example.fileEditor.mjs'
+import { InstallLogViewerExample } from '../../models/openEntities/openEntities.example.logViewer.mjs'
+
+import { InstallArtefactsExample } from '../../models/artefacts/artefacts.example.a.mjs';
 
 export default {
   oninit: function(vnode) {
   	OpenEntities.closeAllEntities()
-  	OpenEntities.openEntity('entity1', 'entity1Value')
-  	OpenEntities.openEntity('entity2', 'entity2Value')
-  	OpenEntities.openEntity('entity3', 'entity3Value')
+  	InstallFileEditorExample()
+  	InstallLogViewerExample()
+  	InstallArtefactsExample()
   },
   view: function(vnode) {
   	return m(Panel, {
