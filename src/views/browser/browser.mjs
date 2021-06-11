@@ -1,7 +1,6 @@
 import m from 'mithril';
 
-import { createHiddenSVGForLaterUse, useIcon } from '../utils.mjs'
-
+import { useIcon   } from '../utils.mjs'
 import { Artefacts } from '../../models/artefacts.mjs'
 
 // see: https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Styling_lists
@@ -88,7 +87,6 @@ export const Browser = (initialVnode) => {
       return m(
       	'div',
       	{},
-      	createHiddenSVGForLaterUse(),
       	m('ul',
       	  m(
       	    BuildBrowser,

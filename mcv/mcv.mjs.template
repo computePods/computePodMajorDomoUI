@@ -1,5 +1,7 @@
 import m from 'mithril'
 
+import { createHiddenSVGForLaterUse } from '../src/views/utils.mjs'
+
 {{ @foreach(it.entries) => aKey, anEntry }}
 import {{anEntry.entryName }} from '~/{{ anEntry.path }}'
 {{/foreach}}
@@ -26,6 +28,7 @@ var NavMenu = {
 var Layout = {
   view: function(vnode) {
     return m("main.layout", [
+      createHiddenSVGForLaterUse(),
       m(NavMenu),
       m("hr"),
       m("component", vnode.children),
