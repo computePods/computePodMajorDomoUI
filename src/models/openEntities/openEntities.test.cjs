@@ -33,12 +33,12 @@ test('theEntities', async function(t) {
 
 	t.deepEqual(Entities.theEntities, {})
 
-  Entities.openEntity('silly', 'sillyType', 'sillyValue')
+  Entities.openEntityWithTestData('silly', 'sillyType', 'sillyValue')
   t.deepEqual(Entities.getEntityValue('silly'), 'sillyValue')
   t.deepEqual(Entities.getEntityType('silly'), 'sillyType')
   Entities.markEntityNeedsSaving('silly')
 
-  Entities.openEntity('sillier', 'sillierType', 'sillierValue')
+  Entities.openEntityWithTestData('sillier', 'sillierType', 'sillierValue')
 
   t.deepEqual(Entities.getEntityValue('silly'),   'sillyValue')
   t.deepEqual(Entities.getEntityType('silly'),   'sillyType')
@@ -64,8 +64,18 @@ test('theEntities', async function(t) {
   t.true(Entities.closeEntity('sillier'))
 
 	Entities.closeAllEntities()
+	Entities.theEntities['silly'].model.getServerData = 'fakeFunction'
 	t.deepEqual(Entities.theEntities, {
-	  silly: { needsSaving: true, type: 'sillyType', value: 'sillyValue' }
+	  silly: {
+	    needsSaving: true,
+	    type: 'sillyType',
+	    model: {
+	     data: 'sillyValue',
+	     entityName: 'silly',
+	     entityType: 'sillyType',
+	     getServerData: 'fakeFunction'
+	    }
+	  }
   })
 
 

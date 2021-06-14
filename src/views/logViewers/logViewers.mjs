@@ -7,7 +7,7 @@ export const LogViewers = {
   view: function(vnode) {
     var entityName = vnode.attrs.entity
     var origHtml = entityName+' is not viewable with a Log Viewer'
-    if (OpenEntities.getEntityType(entityName) == 'logViewer') {
+    if (OpenEntities.getEntityType(entityName) == 'logfiles') {
       origHtml = OpenEntities.getEntityValue(entityName)
     }
     var prismHtml = Prism.highlight(

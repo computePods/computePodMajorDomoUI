@@ -2,6 +2,8 @@ import m from 'mithril'
 
 import { createHiddenSVGForLaterUse } from '../src/views/utils.mjs'
 
+import { Bsw } from './mocks/browserServiceWorker'
+
 {{ @foreach(it.entries) => aKey, anEntry }}
 import {{anEntry.entryName }} from '~/{{ anEntry.path }}'
 {{/foreach}}
@@ -26,6 +28,14 @@ var NavMenu = {
 }
 
 var Layout = {
+  oninit: function(vnode) {
+
+    // We explicitly *stop* the Browser's Mock Serive Workers before each
+    // example. This allows Mock Service Worker based examples to
+    // explicitly turn the MSW back on (only when needed).
+
+    Bsw.stop()
+  },
   view: function(vnode) {
     return m("main.layout", [
       createHiddenSVGForLaterUse(),
@@ -37,6 +47,8 @@ var Layout = {
     ])
   }
 }
+
+Bsw.setup()
 
 var root = document.body
 m.route(root, '/home', {

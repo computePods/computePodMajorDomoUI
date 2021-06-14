@@ -9,7 +9,8 @@
   "alias": {
     "bulma": "~/node_modules/bulma/bulma.sass",
     "eStatic": "~/externalStatic",
-    "codeJar": "~/node_modules/codejar"
+    "codeJar": "~/node_modules/codejar",
+    "msw": "~/node_modules/msw"
   },
   "scripts": {
     "createMCVapp": "node ./mcv/createMCVapp.js",
@@ -48,5 +49,8 @@
     "codejar": "^3.4.0",
     "mithril": "^2.0.4",
     "split.js": "^1.6.4"
+  },
+  "msw": {
+    "workerDirectory": "distMCV"
   }
 }

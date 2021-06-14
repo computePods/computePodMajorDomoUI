@@ -21,7 +21,7 @@ export const FileEditors = {
         class: 'file-editor language-python',
         id: 'file-editor',
       },
-      ( OpenEntities.getEntityType(entityName) == 'fileEditor' ?
+      ( OpenEntities.getEntityType(entityName) == 'editableFile' ?
         OpenEntities.getEntityValue(entityName) :
         entityName+' is not viewable with a File Editor'
       )

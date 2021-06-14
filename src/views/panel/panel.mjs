@@ -4,27 +4,27 @@ import { Header } from '../header/header.mjs'
 import { createLinkFromItem } from '../utils.mjs'
 
 // viewers
-import { Browser      } from '../browser/browser.mjs';
-import { FileEditors  } from '../fileEditors/fileEditors.mjs';
-import { LogViewers   } from '../logViewers/logViewers.mjs';
+import { MountPoint2Viewers } from '../../mappingsViewers.mjs'
+//import { Browser      } from '../browser/browser.mjs';
+//import { FileEditors  } from '../fileEditors/fileEditors.mjs';
+//import { LogViewers   } from '../logViewers/logViewers.mjs';
 
 // models
 import { Panels       } from '../../models/panels/panels.mjs'
 import { OpenEntities } from '../../models/openEntities/openEntities.mjs'
 
 function getContentsFor(entityName) {
-  if (entityName == 'artefactBrowser') return m(Browser)
+  var entityType = OpenEntities.getEntityType(entityName)
+  if (entityName == 'artefactBrowser') entityType = 'listFiles'
+  console.log(MountPoint2Viewers)
+  console.log(entityName)
+  console.log(entityType)
+  if (!MountPoint2Viewers.hasOwnProperty(entityType)) entityType = "unknown"
 
-  switch(OpenEntities.getEntityType(entityName)) {
-    case 'logViewer' :
-      return m(LogViewers, { entity: entityName })
-      break;
-    case 'fileEditor' :
-      return m(FileEditors, { entity: entityName })
-      break;
-    default:
-      return m('div')
-  }
+  var entityViewerFactory = MountPoint2Viewers[entityType]
+  console.log(entityType)
+  console.log(entityViewerFactory)
+  return entityViewerFactory(entityName)
 }
 
 function getTitleFor(entityName) {

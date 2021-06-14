@@ -12,6 +12,15 @@ information:
 
 */
 
+function createFakeTestOnlyModel(entityName, entityType, entityValue) {
+	return {
+	  entityName: entityName,
+		entityType: entityType,
+		data: entityValue,
+		getServerData: function() {	}
+	}
+}
+
 export const OpenEntities = {
   theEntities : {},
   compileMenu: function(initialMenu, openEntityCallback) {
@@ -31,16 +40,39 @@ export const OpenEntities = {
     }
     return initialMenu
   },
-  openEntity: function(anEntityName, anEntityType, anEntityValue) {
-    if (this.theEntities.hasOwnProperty(anEntityName)) {
-    	if (this.theEntities[anEntityName].needsSaving)	return false
+  openEntity: function(entityName, entityModel) {
+    var entityType = entityModel.entityType
+
+    if (this.theEntities.hasOwnProperty(entityName)) {
+      if (this.theEntities[entityName].entityType != entityType) {
+      	console.log(
+      	  "ERROR: openEntity: trying to overwrite existing entity ["+
+      	  entityName+"] with a different type old:["+
+      	  this.theEntities[entityName].entityType+"] new:["+
+      	  entityType+"]"
+      	)
+      	return false
+      }
+    	if (this.theEntities[anEntityName].needsSaving) {
+      	console.log(
+      	  "ERROR: openEntity: trying to overwrite existing entity ["+
+      	  entityName+"] which needs saving"
+      	)
+    	  return false
+    	}
     }
-  	this.theEntities[anEntityName] = {
+  	this.theEntities[entityName] = {
   		needsSaving: false,
-  		type: anEntityType,
-  		value: anEntityValue
+  		type: entityType,
+  		model: entityModel
   	}
   	return true
+  },
+  openEntityWithTestData: function(anEntityName, anEntityType, anEntityValue) {
+    return this.openEntity(
+      anEntityName,
+      createFakeTestOnlyModel(anEntityName, anEntityType, anEntityValue)
+    )
   },
   getEntityType: function(anEntityName) {
   	if (this.theEntities.hasOwnProperty(anEntityName)) {
@@ -48,11 +80,17 @@ export const OpenEntities = {
   	}
   	return 'unknown'
   },
+  getEntityModel: function(anEntityName) {
+  	if (this.theEntities.hasOwnProperty(anEntityName)) {
+  		return this.theEntities[anEntityName].model
+  	}
+  	return {}
+  },
   getEntityValue: function(anEntityName) {
   	if (this.theEntities.hasOwnProperty(anEntityName)) {
-  		return this.theEntities[anEntityName].value
+  		return this.theEntities[anEntityName].model.data
   	}
-  	return ''
+  	return {}
   },
   markEntitySaved: function(anEntityName) {
   	if (this.theEntities.hasOwnProperty(anEntityName)) {
