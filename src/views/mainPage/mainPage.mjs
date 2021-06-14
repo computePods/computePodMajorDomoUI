@@ -4,6 +4,8 @@ import { Header } from '../header/header.mjs'
 import { SplitPanels } from '../splitPanels/splitPanels.mjs'
 import { Footer } from '../footer/footer.mjs'
 
+import { Panels } from '../../models/panels/panels.mjs'
+
 // see: https://mithril.js.org/components.html#closure-component-state
 
 export const MainPage = (initialVnode) => {
@@ -11,10 +13,11 @@ export const MainPage = (initialVnode) => {
     view: (vnode) => {
       return m(
       	'div',
-      	{},
+      	{class: 'main-page'},
       	m(Header, {
+      	  class: 'main-page-header',
       	  theLink: { link: '/', text: 'ComputePods MajorDomo' },
-      	  theMenu: [ { link: '/', text: 'Add a panel'} ]
+      	  theMenu: [ { link: Panels.openAPanel, text: 'Add a panel'} ]
       	}),
       	m(SplitPanels),
       	m(Footer, {

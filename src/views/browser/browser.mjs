@@ -42,7 +42,6 @@ function viewCloseableListEntry(aPath, aNode, branches) {
   let menuBarsSpan   = useIcon('menuBars',   { key: 'menuBars' })
   let textSpan       = m('span',             { key: 'text',       class: 'artifact-browser-text'}, (0 < aPath.length ? aPath[aPath.length-1] : '/'))
   function openCloseListEntry(anEvent) {
-    console.log("Toggling CloseableListEntry::openCloseListEntry for "+entryKey)
     caretRightSpan.dom.hidden = !caretRightSpan.dom.hidden
     caretDownSpan.dom.hidden  = !caretDownSpan.dom.hidden
     branches.map(function(anItem) {
@@ -68,31 +67,17 @@ function viewCloseableListEntry(aPath, aNode, branches) {
   )
 }
 
-function BuildBrowser(initialVnode) {
-  return {
-  	view: function(vnode) {
-  	  var theBrowser = Artefacts.walkOverArtefacts(
-  		  viewCloseableListEntry, // branch function
-  			viewMenuOnlyListEntry   // leaf function
-  		)
-  		theBrowser.attrs.hidden = false
-  	  return theBrowser
-  	}
-  }
-}
-
-export const Browser = (initialVnode) => {
-  return {
-    view: (vnode) => {
-      return m(
-      	'div',
-      	{},
-      	m('ul',
-      	  m(
-      	    BuildBrowser,
-      	  )
-      	)
-      )
-    }
+export const Browser = {
+  view: function(vnode) {
+	  var theBrowser = Artefacts.walkOverArtefacts(
+		  viewCloseableListEntry, // branch function
+			viewMenuOnlyListEntry   // leaf function
+		)
+		theBrowser.attrs.hidden = false
+    return m(
+      'ul',
+    	{ class: 'artifact-browser'},
+      theBrowser
+    )
   }
 }

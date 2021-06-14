@@ -2,19 +2,16 @@ import m from 'mithril';
 
 import { createLinkFromItem } from '../utils'
 
-export const Footer = (origVNode) => {
-  let theLink = origVNode.attrs.theLink || {}
-  let linkItem = createLinkFromItem(theLink)
-  return {
-    view: () =>
+export const Footer = {
+  view: function(vnode) {
+    return m(
+      'footer',
+      { class: 'footer' },
       m(
-        'footer',
-        { class: 'footer' },
-        m(
-          'div',
-          { class: 'content has-text-centered' },
-          linkItem
-        ),
-      ),
-  };
+        'div',
+        { class: 'content has-text-centered' },
+        createLinkFromItem(vnode.attrs.theLink || {})
+      )
+    )
+  }
 };

@@ -6,3 +6,13 @@
 .navbar {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
+
+// This does not seem to work alas ;-(
+// see:
+//   https://github.com/jgthms/bulma/issues/1655
+//   https://bulma.io/documentation/components/navbar/#colors (test 'Docs' menu overlapping...)
+//   https://github.com/jgthms/bulma/issues/3217
+//
+.main-page-header .navbar-dropdown {
+	z-index: 40 !important;
+}

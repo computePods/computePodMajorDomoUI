@@ -77,8 +77,6 @@ export function useIcon(useName, options={hidden: false, width: iconWidth }) {
 // link creation
 
 export function createLinkFromItem(anItem) {
-  console.log('createLinkfromItem')
-  console.log(anItem)
   if ('link' in anItem && 'text' in anItem) {
     let classStr = anItem.class || "navbar-item"
     if (typeof anItem.link == 'function') {
