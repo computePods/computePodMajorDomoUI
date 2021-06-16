@@ -2,7 +2,7 @@ import m from 'mithril';
 
 import { InstallBswExamples, Bsw } from '../../../mcv/browserServiceWorker.mjs'
 
-import { LogViewers } from './logViewers';
+import { FileEditors } from './fileEditors';
 import { OpenEntities } from '../../models/openEntities/openEntities.mjs'
 
 export default {
@@ -12,8 +12,6 @@ export default {
     InstallBswExamples()
   },
   view: function(vnode) {
-  	return m(LogViewers, {
-  		entity: 'an example log file'
-  	})
+    return m(FileEditors, { entity: "Project definition for the 'Measuring Heyting algebras' paper" })
   }
 }

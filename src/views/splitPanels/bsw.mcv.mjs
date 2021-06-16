@@ -2,7 +2,7 @@ import m from 'mithril';
 
 import { InstallBswExamples, Bsw } from '../../../mcv/browserServiceWorker.mjs'
 
-import { MainPage } from './mainPage';
+import { SplitPanels } from './splitPanels';
 
 import { OpenEntities } from '../../models/openEntities/openEntities.mjs'
 import { Panels } from '../../models/panels/panels.mjs'
@@ -15,10 +15,9 @@ export default {
   	OpenEntities.closeAllEntities()
   	InstallArtefactsExample()
   	InstallBswExamples()
-   	Panels.reCreatePanels(5, 2)
+  	Panels.reCreatePanels(5, 2)
   },
   view: function(vnode) {
-  	return m(MainPage)
+  	return m(SplitPanels)
   }
 }
-

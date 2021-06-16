@@ -2,7 +2,17 @@ import m from 'mithril';
 import Prism from 'eStatic/prism';
 import { CodeJar } from 'codeJar';
 
+import { stringify } from 'yaml'
+
 import { OpenEntities } from '../../models/openEntities/openEntities.mjs'
+
+const editableFileMountPoints = [
+	'/projects'
+]
+
+const convertToText = {
+	'/projects' : function(jsonValue) {	return stringify(jsonValue)	},
+}
 
 export const FileEditors = {
   oncreate: function(vnode) {
@@ -16,15 +26,17 @@ export const FileEditors = {
   },
   view: function(vnode) {
     var entityName = vnode.attrs.entity
+    var entityType = OpenEntities.getEntityType(entityName)
+    var theText = '['+entityName+'] is not viewable with a File Editor'
+    if (editableFileMountPoints.includes(entityType)) {
+        theText = convertToText[entityType](OpenEntities.getEntityValue(entityName))
+    }
     return m('div',
       {
         class: 'file-editor language-python',
         id: 'file-editor',
       },
-      ( OpenEntities.getEntityType(entityName) == 'editableFile' ?
-        OpenEntities.getEntityValue(entityName) :
-        entityName+' is not viewable with a File Editor'
-      )
+      theText
     )
   }
 }

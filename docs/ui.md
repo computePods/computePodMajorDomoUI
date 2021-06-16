@@ -87,5 +87,8 @@ for future inspiration.
 6. [Mock Service Workers](https://mswjs.io/) is used to develop and test
    the client-UI separate from the server.
 
+   **Note**: At the moment, Mock Service Workers does not seem to work in
+   Firefox but does work in Chrome.
+
 7. [AJV](https://ajv.js.org/) might be used to test/verify the rest
    interface between the client and the server.

@@ -2,7 +2,7 @@ import m from 'mithril'
 
 import { createHiddenSVGForLaterUse } from '../src/views/utils.mjs'
 
-import { Bsw } from './mocks/browserServiceWorker'
+import { Bsw } from './browserServiceWorker'
 
 {{ @foreach(it.entries) => aKey, anEntry }}
 import {{anEntry.entryName }} from '~/{{ anEntry.path }}'

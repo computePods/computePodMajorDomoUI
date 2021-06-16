@@ -61,6 +61,9 @@ export const OpenEntities = {
     	  return false
     	}
     }
+    if (entityModel.hasOwnProperty('getServerData')) {
+      entityModel.getServerData()
+    }
   	this.theEntities[entityName] = {
   		needsSaving: false,
   		type: entityType,
@@ -75,6 +78,8 @@ export const OpenEntities = {
     )
   },
   getEntityType: function(anEntityName) {
+    if (anEntityName == 'none') return 'none'
+
   	if (this.theEntities.hasOwnProperty(anEntityName)) {
   		return this.theEntities[anEntityName].type
   	}
@@ -88,9 +93,12 @@ export const OpenEntities = {
   },
   getEntityValue: function(anEntityName) {
   	if (this.theEntities.hasOwnProperty(anEntityName)) {
-  		return this.theEntities[anEntityName].model.data
+  	  var thisEntity = this.theEntities[anEntityName]
+  	  if (thisEntity.model.hasOwnProperty('data')) {
+  		  return thisEntity.model.data
+  	  }
   	}
-  	return {}
+  	return "no data"
   },
   markEntitySaved: function(anEntityName) {
   	if (this.theEntities.hasOwnProperty(anEntityName)) {

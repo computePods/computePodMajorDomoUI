@@ -6,10 +6,13 @@ import { OpenEntities } from '../../models/openEntities/openEntities.mjs'
 export const LogViewers = {
   view: function(vnode) {
     var entityName = vnode.attrs.entity
-    var origHtml = entityName+' is not viewable with a Log Viewer'
-    if (OpenEntities.getEntityType(entityName) == 'logfiles') {
-      origHtml = OpenEntities.getEntityValue(entityName)
+    var origHtml = '['+entityName+'] is not viewable with a Log Viewer'
+    if (OpenEntities.getEntityType(entityName) == '/logfile') {
+      origHtml = '['+entityName+'] is not yet viewable with a Log Viewer'
+      var lines = OpenEntities.getEntityValue(entityName).lines
+      if (lines) origHtml = lines.join('\n')
     }
+    console.log(origHtml)
     var prismHtml = Prism.highlight(
       origHtml,
       Prism.languages.log,
