@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A web interface to the ComputePods MajorDomo tool",
   "main": "index.js",
+  "mcv": "./mcv/mcv.html",
   "directories": {
     "doc": "docs"
   },
@@ -17,10 +18,18 @@
   "scripts": {
     "createMCVapp": "node ./mcv/createMCVapp.js",
     "test": "ava --verbose --watch",
-    "mcv": "parcel serve './mcv/mcv.html' --log-level verbose --dist-dir distMCV",
-    "dev": "npm-run-all -r -p createMCVapp mcv",
+    "mcvClient": "parcel serve './mcv/mcv.html' --log-level verbose --dist-dir distMCV",
+    "mcvServer": "parcel serve './mcv/mcv.html' --log-level verbose --target mcv --dist-dir distMCV",
+    "devClient": "npm-run-all -r -p createMCVapp mcvClient",
+    "devServer": "npm-run-all -r -p createMCVapp mcvServer",
     "start": "parcel serve",
     "build": "parcel build"
+  },
+  "targets": {
+  	"mcv": {
+  	  "distDir"  : "./distMCV",
+  		"publicUrl": "/clientApp"
+  	}
   },
   "repository": {
     "type": "git",

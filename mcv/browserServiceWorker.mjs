@@ -19,13 +19,11 @@ import { All_examples, All_handlers } from '../src/interfaces/AllMsw.mjs'
 
 import { OpenEntities } from '../src/models/openEntities/openEntities.mjs'
 
-const restServer = `http://localhost:1234`
-
-const handlers = All_handlers(restServer)
+const handlers = All_handlers()
 
 export function InstallBswExamples() {
 	for (var anExample in All_examples) {
-		OpenEntities.openEntity(anExample, All_examples[anExample](restServer))
+		OpenEntities.openEntity(anExample, All_examples[anExample]())
 	}
 }
 
