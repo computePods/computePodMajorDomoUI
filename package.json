@@ -20,12 +20,17 @@
     "test": "ava --verbose --watch",
     "mcvClient": "parcel serve './mcv/mcv.html' --log-level verbose --dist-dir distMCV",
     "mcvServer": "parcel serve './mcv/mcv.html' --log-level verbose --target mcv --dist-dir distMCV",
+    "appServer": "parcel serve './src/app.html' --log-level verbose --target app --dist-dir dist --port 4321",
     "devClient": "npm-run-all -r -p createMCVapp mcvClient",
-    "devServer": "npm-run-all -r -p createMCVapp mcvServer",
+    "devServer": "npm-run-all -r -p createMCVapp mcvServer appServer",
     "start": "parcel serve",
     "build": "parcel build"
   },
   "targets": {
+    "app": {
+    	"distDir"  : "./dist",
+    	"publicUrl": "/clientApp"
+    },
   	"mcv": {
   	  "distDir"  : "./distMCV",
   		"publicUrl": "/clientApp"

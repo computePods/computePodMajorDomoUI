@@ -1,0 +1,2 @@
+# MajorDomo Panels client state
+
