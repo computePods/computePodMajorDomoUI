@@ -1,4 +1,4 @@
-personal_ws-1.1 en 59 
+personal_ws-1.1 en 60 
 AJV
 Bulma
 CodeJar
@@ -53,6 +53,7 @@ reCreatePanels
 requestAnimationFrame
 svg
 thePanels
+tmux
 un
 validator
 visualizer

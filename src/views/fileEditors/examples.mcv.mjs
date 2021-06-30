@@ -1,15 +1,14 @@
 import m from 'mithril';
 
-import { InstallBswExamples, Bsw } from '../../../mcv/browserServiceWorker.mjs'
+import { InstallMithrilExamples } from '../../../mcv/mithrilExamples.mjs'
 
 import { FileEditors } from './fileEditors';
 import { OpenEntities } from '../../models/openEntities/openEntities.mjs'
 
 export default {
   oninit: function(vnode) {
-    Bsw.start()
     OpenEntities.closeAllEntities()
-    InstallBswExamples()
+    InstallMithrilExamples()
   },
   view: function(vnode) {
     return m(FileEditors, { entity: "Project definition for the 'Measuring Heyting algebras' paper" })

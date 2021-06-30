@@ -2,8 +2,6 @@ import m from 'mithril'
 
 import { createHiddenSVGForLaterUse } from '../src/views/utils.mjs'
 
-import { Bsw } from './browserServiceWorker'
-
 {{ @foreach(it.entries) => aKey, anEntry }}
 import {{anEntry.entryName }} from '~/{{ anEntry.path }}'
 {{/foreach}}
@@ -34,7 +32,6 @@ var Layout = {
     // example. This allows Mock Service Worker based examples to
     // explicitly turn the MSW back on (only when needed).
 
-    Bsw.stop()
   },
   view: function(vnode) {
     return m("main.layout", [
@@ -47,8 +44,6 @@ var Layout = {
     ])
   }
 }
-
-Bsw.setup()
 
 var root = document.body
 m.route(root, '/home', {

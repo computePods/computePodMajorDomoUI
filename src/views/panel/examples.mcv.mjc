@@ -1,6 +1,6 @@
 import m from 'mithril';
 
-import { InstallBswExamples, Bsw } from '../../../mcv/browserServiceWorker.mjs'
+import { InstallMithrilExamples } from '../../../mcv/mithrilExamples.mjs'
 
 import { Panel } from './panel';
 
@@ -11,10 +11,9 @@ import { InstallArtefactsExample } from '../../models/artefacts/artefacts.exampl
 
 export default {
   oninit: function(vnode) {
-    Bsw.stop()
   	OpenEntities.closeAllEntities()
   	InstallArtefactsExample()
-  	InstallBswExamples()
+  	InstallMithrilExamples()
   	Panels.reCreatePanels(5, 2)
   },
   view: function(vnode) {

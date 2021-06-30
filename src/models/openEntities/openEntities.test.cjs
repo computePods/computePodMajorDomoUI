@@ -33,12 +33,12 @@ test('theEntities', async function(t) {
 
 	t.deepEqual(Entities.theEntities, {})
 
-  Entities.openEntityWithTestData('silly', 'sillyType', 'sillyValue')
+  Entities.openEntityWithTestData('silly', 'silly', 'sillyType', 'sillyValue')
   t.deepEqual(Entities.getEntityValue('silly'), 'sillyValue')
   t.deepEqual(Entities.getEntityType('silly'), 'sillyType')
   Entities.markEntityNeedsSaving('silly')
 
-  Entities.openEntityWithTestData('sillier', 'sillierType', 'sillierValue')
+  Entities.openEntityWithTestData('sillier', 'sillier', 'sillierType', 'sillierValue')
 
   t.deepEqual(Entities.getEntityValue('silly'),   'sillyValue')
   t.deepEqual(Entities.getEntityType('silly'),   'sillyType')
@@ -64,16 +64,21 @@ test('theEntities', async function(t) {
   t.true(Entities.closeEntity('sillier'))
 
 	Entities.closeAllEntities()
-	Entities.theEntities['silly'].model.getServerData = 'fakeFunction'
+	Entities.theEntities['silly'].model.getAllServerData = 'fakeFunction'
+	Entities.theEntities['silly'].model.getChangedServerData = 'fakeFunction'
 	t.deepEqual(Entities.theEntities, {
 	  silly: {
+	    name: 'silly',
 	    needsSaving: true,
+	    path: 'silly',
 	    type: 'sillyType',
 	    model: {
+	     artefactPath: 'silly',
 	     data: 'sillyValue',
 	     entityName: 'silly',
 	     entityType: 'sillyType',
-	     getServerData: 'fakeFunction'
+	     getAllServerData: 'fakeFunction',
+	     getChangedServerData: 'fakeFunction'
 	    }
 	  }
   })

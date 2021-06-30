@@ -37,6 +37,27 @@ test('paths', async function(t) {
 })
 
 
+test('add remove artefacts', async function(t) {
+	var Artefacts = t.context.Artefacts
+	Artefacts.clearAllArtefacts()
+	Artefacts.addNodeInfo('/silly/sillier/silliest', { path: '/silly/sillier/silliest' } )
+	Artefacts.addNodeInfo('/silly/sillier/verySilly', { path: '/silly/sillier/verySilly' } )
+	t.deepEqual(Artefacts.findNode('/silly/sillier/silliest'), { path: '/silly/sillier/silliest'})
+	t.deepEqual(Artefacts.findNode('/silly/sillier/verySilly'), { path: '/silly/sillier/verySilly'})
+  Artefacts.removeNode('/silly/sillier/silliest')
+	t.deepEqual(Artefacts.findNode('/silly/sillier/silliest'), null )
+	t.deepEqual(Artefacts.findNode('/silly/sillier/verySilly'), { path: '/silly/sillier/verySilly'})
+	Artefacts.addNodeInfo('/silly/sillier/silliest2', { path: '/silly/sillier/silliest2' } )
+	t.deepEqual(Artefacts.findNode('/silly/sillier/silliest2'), { path: '/silly/sillier/silliest2'})
+	t.deepEqual(Artefacts.findNode('/silly/sillier/verySilly'), { path: '/silly/sillier/verySilly'})
+  Artefacts.removeNode('/silly/sillier/silliest')
+	t.deepEqual(Artefacts.findNode('/silly/sillier/silliest2'), { path: '/silly/sillier/silliest2'})
+	t.deepEqual(Artefacts.findNode('/silly/sillier/verySilly'), { path: '/silly/sillier/verySilly'})
+  Artefacts.removeNode('/silly/sillier')
+	t.deepEqual(Artefacts.findNode('/silly'), null )
+	t.deepEqual(Artefacts.theArtefacts, {} )
+})
+
 var branchData = {
 	paths: [],
 	nodes: [],
@@ -65,6 +86,7 @@ function leafFunction(aPath, aNode) {
 
 test('theArtefacts', async function(t) {
 	var Artefacts = t.context.Artefacts
+	Artefacts.clearAllArtefacts()
 
 	t.deepEqual(Artefacts.theArtefacts, {})
 

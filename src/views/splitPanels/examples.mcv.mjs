@@ -1,8 +1,8 @@
 import m from 'mithril';
 
-import { InstallBswExamples, Bsw } from '../../../mcv/browserServiceWorker.mjs'
+import { InstallMithrilExamples } from '../../../mcv/mithrilExamples.mjs'
 
-import { MainPage } from './mainPage';
+import { SplitPanels } from './splitPanels';
 
 import { OpenEntities } from '../../models/openEntities/openEntities.mjs'
 import { Panels } from '../../models/panels/panels.mjs'
@@ -11,14 +11,12 @@ import { InstallArtefactsExample } from '../../models/artefacts/artefacts.exampl
 
 export default {
   oninit: function(vnode) {
-    Bsw.stop()
   	OpenEntities.closeAllEntities()
   	InstallArtefactsExample()
-  	InstallBswExamples()
-   	Panels.reCreatePanels(5, 2)
+  	InstallMithrilExamples()
+  	Panels.reCreatePanels(5, 2)
   },
   view: function(vnode) {
-  	return m(MainPage)
+  	return m(SplitPanels)
   }
 }
-

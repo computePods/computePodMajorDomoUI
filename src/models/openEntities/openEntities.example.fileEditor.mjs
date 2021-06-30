@@ -1,7 +1,7 @@
 import { OpenEntities } from './openEntities.mjs'
 
 export function InstallFileEditorExample () {
-	OpenEntities.openEntityWithTestData('fileEditorExample', '/projects', FileEditorData)
+	OpenEntities.openEntityWithTestData('fileEditorExample', 'fileEditorExample', '/projects', FileEditorData)
 }
 
 const FileEditorData = `

@@ -38,22 +38,33 @@ function recurseOverArtefacts(aPath, someArtefacts, branchFunction, leafFunction
 	return leafFunction(aPath, someArtefacts)
 }
 
+function removeArtefact(pathParts, someArtefacts) {
+  if (pathParts.length < 1) { return true }
+  var aPathPart = pathParts.shift()
+  if (!aPathPart) { return true }
+
+	if (!someArtefacts.hasOwnProperty('branches')) { return true }
+
+  if (someArtefacts['branches'].length < 1) { return true }
+
+	if (!someArtefacts['branches'].hasOwnProperty(aPathPart)) { return false }
+
+  if (removeArtefact(pathParts, someArtefacts['branches'][aPathPart])) {
+    delete someArtefacts['branches'][aPathPart]
+  }
+
+  if (Object.keys(someArtefacts['branches']).length < 1) {
+    delete someArtefacts['branches']
+    return true
+  }
+
+  return false
+}
+
 export const Artefacts = {
   theArtefacts : {},
   splitPath: function(aPath) {
   	return aPath.split('/').filter(aPart => aPart != '')
-  },
-  findNode: function(aPath) {
-  	var curNode = this.theArtefacts
-  	var pathParts = this.splitPath(aPath)
-  	for (let aPart of pathParts) {
-  		if (!curNode.hasOwnProperty('branches')) return null
-
-  		if (!curNode['branches'].hasOwnProperty(aPart)) return null
-
-  		curNode = curNode['branches'][aPart]
-  	}
-  	return curNode
   },
   addNodeInfo: function(aPath, nodeInfo) {
   	let curNode = this.theArtefacts
@@ -72,19 +83,38 @@ export const Artefacts = {
   	  if (aKey != 'branches')	curNode[aKey] = nodeInfo[aKey]
   	}
   },
+  findNode: function(aPath) {
+  	var curNode = this.theArtefacts
+  	var pathParts = this.splitPath(aPath)
+  	for (let aPart of pathParts) {
+  		if (!curNode.hasOwnProperty('branches')) { return null }
+
+  		if (!curNode['branches'].hasOwnProperty(aPart)) { return null }
+
+  		curNode = curNode['branches'][aPart]
+  	}
+  	return curNode
+  },
+  removeNode: function(aPath) {
+  	var curNode = this.theArtefacts
+  	var pathParts = this.splitPath(aPath)
+    if (removeArtefact(pathParts, curNode)) {
+      this.theArtefacts = {}
+    }
+  },
   getNodeInfo: function(aPath) {
   	return this.findNode(aPath)
   },
   getNodeBranches: function(aPath) {
   	var aNode = this.findNode(aPath)
-  	if (!aNode) return []
-  	if (!aNode.hasOwnProperty('branches')) return []
+  	if (!aNode) { return [] }
+  	if (!aNode.hasOwnProperty('branches')) { return [] }
   	return Object.keys(aNode['branches'])
   },
   isLeaf: function(aPath) {
     var aNode = this.findNode(aPath)
   	if (!aNode) return false
-  	if (aNode.hasOwnProperty('branches')) return false
+  	if (aNode.hasOwnProperty('branches')) { return false }
   	return true
   },
   walkOverArtefacts: function(branchFunction, leafFunction) {

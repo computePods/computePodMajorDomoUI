@@ -12,12 +12,14 @@ information:
 
 */
 
-function createFakeTestOnlyModel(entityName, entityType, entityValue) {
+function createFakeTestOnlyModel(artefactPath, entityName, entityType, entityValue) {
 	return {
+	  artefactPath: artefactPath,
 	  entityName: entityName,
 		entityType: entityType,
 		data: entityValue,
-		getServerData: function() {	}
+		getAllServerData: function() {	},
+		getChangedServerData: function() {	}
 	}
 }
 
@@ -40,80 +42,99 @@ export const OpenEntities = {
     }
     return initialMenu
   },
-  openEntity: function(entityName, entityModel) {
+  openEntity: function(artefactPath, entityName, entityModel) {
     var entityType = entityModel.entityType
 
-    if (this.theEntities.hasOwnProperty(entityName)) {
-      if (this.theEntities[entityName].entityType != entityType) {
+    if (this.theEntities.hasOwnProperty(artefactPath)) {
+      if (this.theEntities[artefactPath].entityType != entityType) {
       	console.log(
       	  "ERROR: openEntity: trying to overwrite existing entity ["+
-      	  entityName+"] with a different type old:["+
-      	  this.theEntities[entityName].entityType+"] new:["+
+      	  artefactPath+"] with a different type old:["+
+      	  this.theEntities[artefactPath].entityType+"] new:["+
       	  entityType+"]"
       	)
       	return false
       }
-    	if (this.theEntities[anEntityName].needsSaving) {
+    	if (this.theEntities[artefactPath].needsSaving) {
       	console.log(
       	  "ERROR: openEntity: trying to overwrite existing entity ["+
-      	  entityName+"] which needs saving"
+      	  artefactPath+"] which needs saving"
       	)
     	  return false
     	}
     }
-    if (entityModel.hasOwnProperty('getServerData')) {
-      entityModel.getServerData()
+    if (entityModel.hasOwnProperty('getAllServerData')) {
+      entityModel.getAllServerData()
     }
-  	this.theEntities[entityName] = {
+  	this.theEntities[artefactPath] = {
   		needsSaving: false,
   		type: entityType,
+  		name: entityName,
+  		path: artefactPath,
   		model: entityModel
   	}
   	return true
   },
-  openEntityWithTestData: function(anEntityName, anEntityType, anEntityValue) {
+  openEntityWithTestData: function(anArtefactPath, anEntityName, anEntityType, anEntityValue) {
     return this.openEntity(
+      anArtefactPath,
       anEntityName,
-      createFakeTestOnlyModel(anEntityName, anEntityType, anEntityValue)
+      createFakeTestOnlyModel(anArtefactPath, anEntityName, anEntityType, anEntityValue)
     )
   },
-  getEntityType: function(anEntityName) {
-    if (anEntityName == 'none') return 'none'
+  updateEntity: function(anArtefactPath) {
+  	if (this.theEntities.hasOwnProperty(anArtefactPath)) {
+  		aModel = this.theEntities[anArtefactPath].model
+  		if (aModel.hasOwnProperty('getChangedServerData')) {
+  		  aModel.getChangedServerData()
+  		}
+  	}
+  },
+  getEntityType: function(anArtefactPath) {
+    if (anArtefactPath == 'none') return 'none'
 
-  	if (this.theEntities.hasOwnProperty(anEntityName)) {
-  		return this.theEntities[anEntityName].type
+  	if (this.theEntities.hasOwnProperty(anArtefactPath)) {
+  		return this.theEntities[anArtefactPath].type
   	}
   	return 'unknown'
   },
-  getEntityModel: function(anEntityName) {
-  	if (this.theEntities.hasOwnProperty(anEntityName)) {
-  		return this.theEntities[anEntityName].model
+  getEntityName: function(anArtefactPath) {
+    if (anArtefactPath == 'none') return 'none'
+
+  	if (this.theEntities.hasOwnProperty(anArtefactPath)) {
+  		return this.theEntities[anArtefactPath].name
+  	}
+  	return 'unknown'
+  },
+  getEntityModel: function(anArtefactPath) {
+  	if (this.theEntities.hasOwnProperty(anArtefactPath)) {
+  		return this.theEntities[anArtefactPath].model
   	}
   	return {}
   },
-  getEntityValue: function(anEntityName) {
-  	if (this.theEntities.hasOwnProperty(anEntityName)) {
-  	  var thisEntity = this.theEntities[anEntityName]
+  getEntityValue: function(anArtefactPath) {
+  	if (this.theEntities.hasOwnProperty(anArtefactPath)) {
+  	  var thisEntity = this.theEntities[anArtefactPath]
   	  if (thisEntity.model.hasOwnProperty('data')) {
   		  return thisEntity.model.data
   	  }
   	}
   	return "no data"
   },
-  markEntitySaved: function(anEntityName) {
-  	if (this.theEntities.hasOwnProperty(anEntityName)) {
-  		this.theEntities[anEntityName].needsSaving = false
+  markEntitySaved: function(anArtefactPath) {
+  	if (this.theEntities.hasOwnProperty(anArtefactPath)) {
+  		this.theEntities[anArtefactPath].needsSaving = false
   	}
   },
-  markEntityNeedsSaving: function(anEntityName) {
-  	if (this.theEntities.hasOwnProperty(anEntityName)) {
-  		this.theEntities[anEntityName].needsSaving = true
+  markEntityNeedsSaving: function(anArtefactPath) {
+  	if (this.theEntities.hasOwnProperty(anArtefactPath)) {
+  		this.theEntities[anArtefactPath].needsSaving = true
   	}
   },
-  closeEntity: function(anEntityName) {
-    if (this.theEntities.hasOwnProperty(anEntityName)) {
-    	if (this.theEntities[anEntityName].needsSaving) return false
-    	delete this.theEntities[anEntityName]
+  closeEntity: function(anArtefactPath) {
+    if (this.theEntities.hasOwnProperty(anArtefactPath)) {
+    	if (this.theEntities[anArtefactPath].needsSaving) return false
+    	delete this.theEntities[anArtefactPath]
     }
     return true
   },

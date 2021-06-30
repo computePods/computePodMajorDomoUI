@@ -1,7 +1,7 @@
 import { OpenEntities } from './openEntities.mjs'
 
 export function InstallLogViewerExample () {
-  OpenEntities.openEntityWithTestData('logViewerExample', '/logfile', LogViewerData)
+  OpenEntities.openEntityWithTestData('logViewerExample', 'logViewerExample', '/logfile', LogViewerData)
 }
 
 const LogViewerData = {
