@@ -1,4 +1,4 @@
-personal_ws-1.1 en 60 
+personal_ws-1.1 en 67 
 AJV
 Bulma
 CodeJar
@@ -26,13 +26,16 @@ SplitPanels
 UI
 Webpack
 addons
+async
 ava
 backend
 createLinkFromItem
 dropdown
 entityType
+expressWs
 fileserver
 globals
+html
 initiallyHiddenDefault
 logFile
 logfiles
@@ -44,13 +47,17 @@ minified
 mitch
 mithril
 mixin
+nav
 navbar
 needsSaving
 openAPanel
 ospec
 prismjs
 reCreatePanels
+reloader
 requestAnimationFrame
+ssExpress
+sseExpress
 svg
 thePanels
 tmux

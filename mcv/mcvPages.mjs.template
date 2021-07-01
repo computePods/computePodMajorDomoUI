@@ -1,0 +1,38 @@
+import m from 'mithril'
+
+{{ @foreach(it.entries) => aKey, anEntry }}
+import {{anEntry.entryName }} from '~/{{ anEntry.path }}'
+{{/foreach}}
+
+export var NavMenuList = [
+      m(m.route.Link, { href: "/home", style: "margin-left: 20px;"}, "MCV")
+{{ @foreach(it.entries) => aKey, anEntry }}
+      m(
+        m.route.Link,
+        {
+          href: "/mcv/{{ anEntry.route}}",
+          style: "margin-left: 20px;"
+        },
+        "{{ anEntry.viewDir | capitalize }}/{{ anEntry.viewObj | capitalize }}"
+      ),
+{{/foreach}}
+      m(m.route.Link, { href: "/home", style: "margin-left: 20px;"}, "MCV")
+    ]
+
+export function GetMCVRoutes(Layout) {
+	return {
+{{ @foreach(it.entries) => aKey, anEntry }}
+    '/mcv/{{anEntry.route}}' : {
+      view: function() {
+        return m(Layout, m({{ anEntry.entryName}}))
+      }
+    },
+{{/foreach}}
+    '/home' : {
+    	view: function() {
+  	  	return m(Layout)
+  	  }
+    }
+  }
+}
+

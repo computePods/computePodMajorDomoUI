@@ -19,7 +19,7 @@ const watcher = require('@parcel/watcher')
 const isMCV = new RegExp('\.mcv\.[mc]?js$')
 
 function reBuildIndexJS() {
-  console.log("rebuilding mcv/mcv.mjs")
+  console.log("rebuilding mcv/mcvPages.mjs")
 
   const srcEntries = fg.sync(['src/**/*.mcv.{cjs,js,mjs}'])
 
@@ -38,7 +38,7 @@ function reBuildIndexJS() {
     }
   }
 
-  var template = fs.readFileSync('mcv/mcv.mjs.template', { encoding: 'utf-8'});
+  var template = fs.readFileSync('mcv/mcvPages.mjs.template', { encoding: 'utf-8'});
 
   Sqrl.filters.define("capitalize", function(str) {
     str = str[0].toUpperCase() + str.substring(1)
@@ -48,7 +48,7 @@ function reBuildIndexJS() {
   var renderedStr = Sqrl.render(template, {
     entries : entries
   })
-  fs.writeFileSync('mcv/mcv.mjs', renderedStr)
+  fs.writeFileSync('mcv/mcvPages.mjs', renderedStr)
 
   console.log("")
 }

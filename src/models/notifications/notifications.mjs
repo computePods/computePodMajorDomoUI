@@ -4,9 +4,9 @@
 
 import m from 'mithril'
 
-import { Artefacts    } from '../artefacts/artefacts.mjs'
-import { OpenEntities } from '../openEntities/openEntities.mjs'
-import { WebSocket    } from '../../interfaces/AllWebSockets.mjs'
+import { Artefacts     } from '../artefacts/artefacts.mjs'
+import { OpenEntities  } from '../openEntities/openEntities.mjs'
+import { EventSourceOn } from '../../eventSourcFactory.mjs'
 
 function onMessage(evt) {
   if !evt.hasOwnProperty('data') return
@@ -35,6 +35,8 @@ function onMessage(evt) {
 }
 
 export function SetupWebSocket() {
-  WebSocket.onMessage = onMessage
-  WebSocket.openWebSocket()
+  theNotifications = EventSourceOn({ mountPoint: '/notifications' })
+  if (theNotifications) {
+    theNotifications.onMessage = onMessage
+  }
 }
