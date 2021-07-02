@@ -6,6 +6,11 @@
 # We use tmux so that we can *see* the outputs of the various parallel
 # commands in separate places.
 
+# You can use the SHIFT key in tmux to access the "normal" mouse menus.
+# This is useful if you want the "normal" "open-link" command....
+#
+# see: https://www.rushiagr.com/blog/2016/06/16/everything-you-need-to-know-about-tmux-copy-pasting-ubuntu/
+
 echo ""
 
 if ! which tmux > /dev/null ; then
@@ -72,6 +77,7 @@ if ! tmux has-session -t "devMajorDomoMockServer" ; then
   #
   tmux split-window -v  \
     npx supervisor --watch ./mockServer --non-interactive \
+      --no-restart-on error \
       node ./mockServer/mockServer.mjs
 
   tmux set-option -g mouse

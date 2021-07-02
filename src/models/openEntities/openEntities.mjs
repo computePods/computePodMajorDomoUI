@@ -12,6 +12,8 @@ information:
 
 */
 
+import log from 'loglevel'
+
 function createFakeTestOnlyModel(artefactPath, entityName, entityType, entityValue) {
 	return {
 	  artefactPath: artefactPath,
@@ -47,7 +49,7 @@ export const OpenEntities = {
 
     if (this.theEntities.hasOwnProperty(artefactPath)) {
       if (this.theEntities[artefactPath].entityType != entityType) {
-      	console.log(
+      	log.error(
       	  "ERROR: openEntity: trying to overwrite existing entity ["+
       	  artefactPath+"] with a different type old:["+
       	  this.theEntities[artefactPath].entityType+"] new:["+
@@ -56,7 +58,7 @@ export const OpenEntities = {
       	return false
       }
     	if (this.theEntities[artefactPath].needsSaving) {
-      	console.log(
+      	log.error(
       	  "ERROR: openEntity: trying to overwrite existing entity ["+
       	  artefactPath+"] which needs saving"
       	)

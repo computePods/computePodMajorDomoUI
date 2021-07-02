@@ -45,7 +45,7 @@ export function createHiddenSVGForLaterUse() {
 
 export function useIcon(useName, options={hidden: false, width: iconWidth }) {
   if (knownIconIDs.indexOf(useName) < 0) {
-  	console.log('useIcon: unknown icon name: ['+useName+']')
+  	log.error('useIcon: unknown icon name: ['+useName+']')
   }
   var theKey = ('key' in options) ? options['key'] : undefined
   delete options.key

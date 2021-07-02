@@ -1,13 +1,12 @@
 import m from 'mithril';
 
+import log from 'loglevel'
+
 import { Header } from '../header/header.mjs'
 import { createLinkFromItem } from '../utils.mjs'
 
 // viewers
 import { MountPoint2Viewers } from '../../mappingsViewers.mjs'
-//import { Browser      } from '../browser/browser.mjs';
-//import { FileEditors  } from '../fileEditors/fileEditors.mjs';
-//import { LogViewers   } from '../logViewers/logViewers.mjs';
 
 // models
 import { Panels       } from '../../models/panels/panels.mjs'
@@ -16,14 +15,14 @@ import { OpenEntities } from '../../models/openEntities/openEntities.mjs'
 function getContentsFor(entityName) {
   var entityType = OpenEntities.getEntityType(entityName)
   if (entityName == 'artefactBrowser') entityType = 'listFiles'
-  console.log(MountPoint2Viewers)
-  console.log(entityName)
-  console.log(entityType)
+  log.debug(MountPoint2Viewers)
+  log.debug(entityName)
+  log.debug(entityType)
   if (!MountPoint2Viewers.hasOwnProperty(entityType)) entityType = "unknown"
 
   var entityViewerFactory = MountPoint2Viewers[entityType]
-  console.log(entityType)
-  console.log(entityViewerFactory)
+  log.debug(entityType)
+  log.debug(entityViewerFactory)
   return entityViewerFactory(entityName)
 }
 

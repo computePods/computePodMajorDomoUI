@@ -18,6 +18,8 @@ Each un-hidden panel contains the name of its associated open entity.
 
 */
 
+import log from 'loglevel'
+
 import Split from 'split.js';
 
 const minPanelSize = 10
@@ -143,7 +145,7 @@ export const Panels = {
     // should be viewing.
 
   	if ((panelNum < 0) || (this.maxNumSplits < panelNum)) {
-  	  console.log('panel ['+panelNum+'] is out of bounds!')
+  	  log.error('panel ['+panelNum+'] is out of bounds!')
   	  return 'none'
   	}
   	return this.thePanels[panelNum].entityName
@@ -174,7 +176,7 @@ export const Panels = {
       })
     } catch (err) {
     	// do nothing but catch all errors
-    	console.log(err)
+    	log.error(err)
     }
   },
   getNumOpenPanels: function() {

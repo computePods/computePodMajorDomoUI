@@ -1,4 +1,7 @@
 import m from 'mithril';
+
+import log from 'loglevel'
+
 import Prism from 'eStatic/prism';
 
 import { OpenEntities } from '../../models/openEntities/openEntities.mjs'
@@ -12,7 +15,7 @@ export const LogViewers = {
       var lines = OpenEntities.getEntityValue(entityName).lines
       if (lines) origHtml = lines.join('\n')
     }
-    console.log(origHtml)
+    log.debug(origHtml)
     var prismHtml = Prism.highlight(
       origHtml,
       Prism.languages.log,

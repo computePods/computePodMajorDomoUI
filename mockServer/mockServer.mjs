@@ -3,7 +3,6 @@
 //
 // see: http://expressjs.com/
 
-
 // Since this is a development server we explicitly use a reloader
 //
 // see: https://github.com/AckerApple/ack-reload
@@ -38,26 +37,34 @@ const server = http.createServer((req,res) => {
 // Now monkey-patch the application using sseExpress
 //
 app.sse = function addSseMethod(route, ...middleWares) {
+  console.log("Adding new sse for route ["+route+"]")
   var finalMiddleWare = middleWares.pop()
   var jsonData = {}
   var jsonCapture = {
   	json: function(someJson) { jsonData = someJson }
   }
 	this.get(route, sseExpress(), ...middleWares, function(req, res){
+	  console.log("opening sse route ["+route+"]")
     finalMiddleWare(req, jsonCapture)
     if (!Array.isArray(jsonData)) {
       jsonData = [ jsonData ]
     }
     for (var anItem of jsonData) {
+      console.log("sending jsonData item:")
+      console.log(anItem)
       var payload = {
-      	data: json.stringify(anItem)
+      	data: JSON.stringify(anItem)
       }
-      if (anItem.hasObjectProperty('notificationType')) {
-      	payload['event'] = anItem['notificationType']
-      }
+      //if (anItem.hasOwnProperty('notificationType')) {
+      //	payload['event'] = anItem['notificationType']
+      //}
+      console.log(payload)
       res.sse(payload)
       // sleep a random amount of time (needs async!!!)
     }
+    res.sse({
+    	event: 'close'
+    })
 	})
 }
 
