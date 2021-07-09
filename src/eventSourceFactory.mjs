@@ -9,20 +9,29 @@ import log from 'loglevel'
 
 import { buildUrl, sseMountPoints } from './interfaces/AllHttpRouteUtils.mjs'
 
-export function EventSourceOn(entityUrlParts, newOnMessage) {
+function doNothing(evt) { }
+
+export function EventSourceOn(entityUrlParts, options) {
 
   if (!entityUrlParts.hasOwnProperty('mountPoint')) return null
   if (!sseMountPoints.hasOwnProperty(entityUrlParts['mountPoint'])) return null
+
+  var extraOnOpen    = options['onOpen']    || doNothing
+  var extraOnMessage = options['onMessage'] || doNothing
+  var extraOnError   = options['onError']   || doNothing
+  var extraOnClose   = options['onClose']   || doNothing
 
   var fullPath = buildUrl(entityUrlParts)
   var mountPoint = entityUrlParts['mountPoint']
 
   function onOpen(evt) {
 	  log.info("EventSource ["+ mountPoint +"] opened")
+	  extraOnOpen(evt)
   }
 
   function onClose(evt) {
 	  log.info("EventSource ["+ mountPoint + "] closed")
+	  extraOnClose(evt)
 	  esObj.stop()
   }
 
@@ -30,13 +39,14 @@ export function EventSourceOn(entityUrlParts, newOnMessage) {
 	  log.error("EventSource [" + mountPoint + "] ERROR: ")
 	  log.error(evt)
 	  log.error("EventSource error ignored")
+	  extraOnError(evt)
   }
 
   function onMessage(evt) {
 	  //log.debug("EventSource ["+ mountPoint + "] MSG:")
 	  //log.debug(evt.data)
 	  //log.debug("EventSource MSG ----------------------")
-	  newOnMessage(evt)
+	  extraOnMessage(evt)
 	  m.redraw()
   }
 

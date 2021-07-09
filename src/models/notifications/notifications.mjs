@@ -45,4 +45,7 @@ function onMessage(evt) {
 }
 
 export const Notifications =
-  EventSourceOn({ mountPoint: '/notifications' }, onMessage)
+  EventSourceOn(
+    { mountPoint: '/notifications' },
+    { onMessage: onMessage }
+  )

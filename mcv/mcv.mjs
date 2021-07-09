@@ -4,6 +4,7 @@ import log from 'loglevel'
 
 import { createHiddenSVGForLaterUse } from '../src/views/utils.mjs'
 import { NavMenuList, GetMCVRoutes  } from './mcvPages.mjs'
+import { HeartBeatReload            } from '../src/heartBeatReloader.mjs'
 
 // we use the LogLevel tool to show/hide log messages at various levels.
 //
@@ -33,6 +34,8 @@ var Layout = {
     ])
   }
 }
+
+HeartBeatReload()
 
 var root = document.body
 var mcvRoutes = GetMCVRoutes(Layout)

@@ -3,16 +3,14 @@
 //
 // see: http://expressjs.com/
 
-// Since this is a development server we explicitly use a reloader
-//
-// see: https://github.com/AckerApple/ack-reload
-// alternative: https://github.com/alallier/reload
+// Since this is a development server we explicitly use our own SSE based
+// reloader
 
 import express    from 'express'
 import sseExpress from 'sse-express'
 import http       from 'http'
 import path       from 'path'
-import reload     from 'ack-reload'
+import sleep      from 'sleep-promise'
 
 import { All_handlers } from '../src/interfaces/AllMockServerExamples.mjs'
 
@@ -25,32 +23,29 @@ const port = 1234
 const app = express()
 
 // Create the HTTP server
+// We really (eventually) want an HTTP/2 secure server...
+// see: https://nodejs.org/dist/latest-v14.x/docs/api/http2.html#http2_server_side_example
+// This *will* be needed when we have 5-6 SSE connections open at once...
 //
-const server = http.createServer((req,res) => {
-  if( reload.isRequestForReload(req) ) {
-    midware(req, res)
-  } else {
-    app(req,res)
-  }
-})
+const server = http.createServer(app)
 
 // Now monkey-patch the application using sseExpress
 //
 app.sse = function addSseMethod(route, ...middleWares) {
-  console.log("Adding new sse for route ["+route+"]")
+  console.log("Adding new SSE for route ["+route+"]")
   var finalMiddleWare = middleWares.pop()
   var jsonData = {}
   var jsonCapture = {
   	json: function(someJson) { jsonData = someJson }
   }
 	this.get(route, sseExpress(), ...middleWares, function(req, res){
-	  console.log("opening sse route ["+route+"]")
+	  console.log("opening SSE route ["+route+"]")
     finalMiddleWare(req, jsonCapture)
     if (!Array.isArray(jsonData)) {
       jsonData = [ jsonData ]
     }
     for (var anItem of jsonData) {
-      console.log("sending jsonData item:")
+      console.log("sending JSONData item:")
       console.log(anItem)
       var payload = {
       	data: JSON.stringify(anItem)
@@ -68,14 +63,6 @@ app.sse = function addSseMethod(route, ...middleWares) {
 	})
 }
 
-//watch files, create websocket. Return function to process requests
-//
-const midware = reload.middleware(distMCVdir, server, {
-  onReload:function(){
-    console.log('Mock server reloaded at '+new Date().toString())
-  }
-})
-
 app.use('/clientApp', express.static(distMCVdir))
 
 All_handlers(app)
@@ -84,8 +71,27 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(distMCVdir, 'mcv.html'))
 })
 
+// Explicitly create our own /heartBeat SSE handler...
+// This makes explicit use of an asynchronous sleep...
+// see: https://zellwk.com/blog/async-await-express/
+//
+app.get('/heartBeat', sseExpress(), async function(req, res, next) {
+	console.log("Adding new SSE for route [/heartBeat]")
+	try {
+    while (true) {
+      //console.log("Sending HeartBeat")
+    	res.sse({
+    		data: 'Hello'
+    	})
+    	await sleep(1000)
+    }
+	} catch (error) {
+		return next(error)
+	}
+})
+
 // at this point we have server and app and reload code
 //
 server.listen(port, () => {
-	console.log(`Mock server listening at http://localhost:${port}/mcv.html`)
+	console.log(`Mock server listening at http://localhost:${port}`)
 })
