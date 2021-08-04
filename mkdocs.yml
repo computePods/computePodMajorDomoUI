@@ -1,0 +1,14 @@
+site_name: ComputePods MajorDomo UI
+
+#site_url: https://computepods.github.io/
+
+repo_url: https://github.com/computePods/majorDomoUI
+
+plugins:
+  - search
+  - compute-pods
+  - awesome-pages
+  - mermaid2
+
+theme:
+  name: material
